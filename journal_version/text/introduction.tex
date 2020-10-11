@@ -1,0 +1,56 @@
+% !TeX spellcheck = en_GB
+% !TeX root = ../main-scirep.tex
+
+\section{Introduction}
+\label{section:introduction}
+
+Modern societies rely upon law as the primary mechanism to control their development and manage their conflicts. 
+Through carefully designed rights and responsibilities, institutions and procedures,
+law can enable humans to engage in increasingly complex social and economic activities. 
+Therefore, law plays an important role in understanding how societies change. 
+To explore the interplay between law and society, 
+we need to study how both co-evolve over time. 
+This requires a firm quantitative grasp of the changes occurring in both domains. 
+But while quantifying societal change has been the subject of tremendous research efforts in fields such as sociology, economics, or social physics for many years \cite{bowers1937,bogue1952,tuma1984,palla2007,castellano2009,ebrahim2019},
+much less work has been done to quantify legal change. 
+In fact, legal scholars have traditionally regarded the law as hardly quantifiable, 
+and although there is no dearth of empirical legal studies \cite{heise2011,ho2013,epstein2014}, 
+it is only recently that researchers have begun to apply data science methods to law \cite{whalen2016,coupette2019,livermore2019,frankenreiter2020}.
+To date, there have been relatively few quantitative works that explicitly address legal change \cite{cross2007,buchanan2014,rockmore2017,ruhl2017,rutherford2018,fjelstul2019}, 
+and almost no scholarship exists that analyses the time-evolving outputs of the legislative and executive branches of national governments at scale. 
+Unlocking these data sources for the interdisciplinary scientific community will be crucial for understanding how law and society interact.
+
+Our work takes a step towards this goal.
+As a starting point, we hypothesise that an increasingly diverse and interconnected society might create increasingly diverse and interconnected rules. 
+Lawmakers create, modify, and delete legal rules to achieve particular behavioural outcomes, often in an effort to respond to perceived changes in societal needs.
+While earlier large-scale quantitative work focused on analysing an individual snapshot of laws enacted by national parliaments \cite{bommarito2010a,katz2014},
+collections of snapshots offer a window into the dynamic interaction between law and society.
+Such collections represent complete, time-evolving populations of statutes at the national level. 
+Hence, no sampling is needed for their analysis, 
+and all changes we observe are direct consequences of legislative activity.
+This feature makes collections of nation-level statutes particularly suitable for investigating temporal dynamics.
+
+To preserve the intended multidimensionality of legal document collections and explore how they change over time,
+legislative corpora should be modelled as dynamic document networks
+\cite{bommarito2010a,katz2014,boulet2011,koniaris2014,sweeney2014,winkels2014,koniaris2018}.
+In particular, since legal documents are carefully organised and interlinked,
+their structure provides a more direct window into their content and dynamics than their language: 
+Networks honour the deliberate design decisions made by the document authors and circumvent some of the ambiguity problems that natural language-based approaches inherently face.
+In this paper, we therefore develop an informed data model for legislative corpora,
+capturing the richness of legislative data for exploration by social physics. 
+We leverage our data model to analyse the evolution of federal statutes in the United States and Germany. 
+Here, we find extensive growth in legal complexity as a function of volume, interconnectivity, and hierarchical structure of the legislation in both countries%
+---evidence that the highly industrialised countries we study seek to manage behaviour by building increasingly complex bodies of legal rules.
+Searching for the sources of the growth we observe, 
+we draw on graph clustering techniques
+to locate those legal topics that contribute most to the complexity increase and trace their development over time.
+Deriving our information on the content of legislative documents directly from the conscious structural choices made by their drafters, 
+we find that the main driver behind the growth of the law in both the United States and Germany is the expansion of the welfare state, backed by an expansion of the tax state.
+Beyond this high-level picture, our methodology also enables more fine-grained discoveries---%
+for example, we find that during our observation period, 
+the regulation of natural resources in the United States shifted from exploitation to conservation.
+Thus, we achieve results that would be hard (or even impossible) to obtain using approaches that leverage only the natural language of legislative documents  
+while keeping the amount of subjective judgements to a minimum.
+Our work highlights the potential of legal network data and document network analysis for studying the interaction between law and society when viewed through the lens of Complex Adaptive Systems (CAS)
+\cite{post2000,porter2005,fowler2007,schaper2013,ruhl2017,lee2019}, 
+and it opens novel research avenues to the interdisciplinary scientific community.

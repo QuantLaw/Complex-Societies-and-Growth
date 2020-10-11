@@ -1,0 +1,265 @@
+% !TeX spellcheck = en_GB
+% !TeX root = ../main-scirep.tex
+\section{Results}
+\label{section:results}
+
+\subsection{Dynamic network model of legislation}\label{subsection:model}
+\label{subsection:datamodel}
+We model 25 years of statutory materials from two advanced industrial countries, the United States and Germany, as time-evolving document networks. 
+To build our original datasets, 
+for the United States, we collect annual snapshots of the United States Code (US Code) from 1994 to 2018 from the Office of the Law Revision Counsel of the U.S. House of Representatives.  
+For Germany, we create a parallel set of yearly snapshots for all federal statutory laws in effect at the beginning of the year in question based on documents from Germany's primary legal data provider, \emph{juris GmbH}. 
+For details on our data sources, see Section~1 of the Supplementary Information (SI). 
+
+Each individual law or section (that has not been repealed) contains at least some text, 
+and it may contain nested subsections as well as ingoing and outgoing references.  
+For each country and yearly snapshot, we construct a network of all federal statutes. 
+The entities in this network are the structural elements of the statutes we collect, some of which contain text (i.e., the stipulation of a legal rule). 
+These entities are interconnected by inclusion relationships (e.g., a section containing several paragraphs) and cross-references (i.e., the text of an element referencing another element), 
+and they can be sequentially ordered by their labels.
+Notably, only one level of the inclusion hierarchy in legislative corpora is uniquely sequentially labelled (this is the Section level in the United States and the § or Article level in Germany). 
+We refer to the structural elements in this layer as \emph{seqitems}.
+For excerpts from United States law and German law that illustrate their inherent structure, see Section~1.3 of the \suppi. 
+
+In the legislative process, 
+the structure of legislative texts is controlled by the administrative officials drafting the rules. 
+Therefore, \emph{hierarchy}, \emph{reference}, and \emph{sequence} within a corpus of legislative documents contain information about the content of the corpus 
+that is less noisy and easier to parse than its language. 
+To unlock this information for large-scale comparative and dynamic analysis, 
+we model a body of legislation at a certain point in time as a document collection following the Document Object Model (DOM) standard \cite{domspec} (for our domain-specific XML Schema Definition [XSD], see Section~2.4 of the~\suppi). 
+With each document collection, we associate four graphs 
+as depicted in Figure~\ref{fig:conceptual_sequence_graph}~(a),
+whose formal definitions are given in Section~\ref{subsection:methods:modelling}.
+Our simplest graph is the \emph{hierarchy graph}, 
+which models the inclusion relationships between the structural elements of legal texts. 
+It is a subgraph of the \emph{reference graph}, which models inclusion and cross-reference relationships. 
+From a network science perspective, the reference graph is perhaps the most intuitive representation of a legislative document collection, and all of our other graphs can be derived from it. 
+The \emph{sequence graph} contains only the \emph{seqitems} from the reference graph, 
+which are connected by cross-reference edges and bidirectional \emph{sequence edges} 
+(Section~\ref{subsection:methods:modelling} introduces a parametrized definition of this graph for greater analytical flexibility). 
+The cross-reference edges are unweighted, 
+while the sequence edges have weights proportional to the distance between their endpoints in the undirected version of the hierarchy graph 
+(e.g., a sequence edge between Section $i-1$ and Section $i$ in Chapter $A$ weighs more than a sequence edge between Section $i$ in Chapter $A$ and Section $i+1$ in Chapter $B$). 
+The sequence graph expresses how legal practitioners work with a legal text (i.e., they approach a topic through one particular rule,
+scan its vicinity as long as it is also hierarchically close,
+possibly follow a cross-reference, 
+then scan the hierarchically close vicinity of a referenced rule).
+Finally, we define \emph{quotient graphs} based on attributes attached to the elements of our reference graphs. 
+In these graphs, all elements with the same attribute value(s) (e.g., all \emph{seqitems} belonging to the same Chapter) are collapsed into one node, 
+and edges are rerouted accordingly. 
+
+The graphs sketched above allow us to compare legislative document collections both \emph{horizontally} (i.e., across nations) and \emph{vertically} (i.e., across time).
+In particular, hierarchy graphs and reference graphs let us track basic statistics over time (cf. Section~\ref{subsection:methods:growth}), 
+which change when lawmakers add, update, or delete legal rules as depicted in Figure~\ref{fig:conceptual_sequence_graph}~(b).
+Sequence graphs help us align basic elements of legal texts across years (cf. Section~\ref{subsubsection:methods:temporal}).
+Along with quotient graphs, they also facilitate the reorganisation of legislative materials via graph clustering (cf. Section~\ref{subsubsection:methods:clustering}), 
+where they allow us to focus on different topics or levels of granularity depending on the research question to be investigated.
+To the best of our knowledge, there exists no comparably flexible explicit model for legislative document collections in the document network analysis literature. 
+Since we do not use all features of the model in our analysis, 
+exploiting the power of our data model to a greater extent is a natural direction for future work (see Section~\ref{section:discussion} for details).
+
+\subsection{Substantial growth in volume, connectivity, and hierarchical structure}
+\label{subsection:growth}
+
+The data model introduced in Section~\ref{subsection:model} enables us to track the development of our legislative corpora over time. 
+As Table~\ref{tab:descriptive-statistics} shows, the absolute size of these corpora has grown substantially in the past two and a half decades, 
+whether measured by the number of tokens (whitespace-delimited chunks of text that roughly correspond to words), 
+the number of structural elements, or the number of cross-references contained therein. 
+Judging merely by the number of tokens, 
+in both jurisdictions,
+the law in 2018 is more than $1.5$ times as large as the law in 1994. 
+Given the fact that the legal systems of both countries were already fully developed twenty-five years ago, 
+the sheer magnitude of this growth is striking. 
+
+Inspecting the statistics in Table~\ref{tab:descriptive-statistics} along with the relative growth over time illustrated in Figure~\ref{fig:legislative-growth} 
+further reveals two distinct growth patterns:
+In the United States, the number of tokens and the number of cross-references grow at the same rate, 
+which is considerably lower than the growth rate for the number of structural elements. 
+In contrast, the German corpus exhibits its highest growth rate for the number of cross-references, 
+and growth in the number of tokens is noticeably faster than growth in the number of structural elements.
+Thus, the volume increase in the federal statutory legislation of the United States is accompanied primarily by an increase in the number of entities, 
+whereas the volume increase in the federal statutory legislation of Germany is accompanied primarily by an increase in the number of relationships in the legislative network. 
+This suggests that cross-references and hierarchical elements function as substitutes when it comes to integrating new content into an existing legal corpus.
+
+However, increasing the number of hierarchical elements or the number of cross-references also tends to correlate with a decrease in navigability as it may be indicative of content fragmentation: 
+Anyone trying to understand a legal rule will more often be forced to combine information from multiple places in the law to obtain a complete picture of its content. 
+This difficulty is only exacerbated by the dominant legal information systems, 
+which often force users to click through hierarchies of legal elements and seldom allow them to display a custom selection of structural units in a single browser tab for joint appreciation.
+Therefore, our statistics for both countries support the intuition that their legislative apparatuses are growing also in complexity---%
+although the complexity increase is driven by different design choices in both jurisdictions. 
+While the difference in legislative drafting styles is of natural interest for comparative legal scholarship, 
+the common growth trend we observe begs a broader question: 
+What is its source?
+
+This question has no meaningful answer within the current formal organisation of the legislative materials. 
+In fact, the US Code as the primary organisational system for legislation in the United States has barely changed in the time period under study. 
+The US Code comprised 50~Titles in 1994;
+since then, three Titles have been added (51, 52, and 54), 
+two formerly empty Titles have been reassigned (6, 34), 
+and two Titles have experienced small name changes (36, 47). 
+Apart from that, US federal legislation has been codified in the same Titles since 1994,
+with the total number of Chapters existing across all Titles rising from 2000 to 2723 (for an average growth of 30 Chapters per year). 
+Figure~\ref{fig:us-tokens-per-title} localizes the growth over four-year intervals within the existing, 
+content-based organisation of the US code. 
+Based on raw token counts (excluding notes and appendices), 
+the biggest growth has occurred in Title~42 (The Public Health and Welfare), 
+Title~7 (Agriculture), 
+and Title~15 (Commerce and Trade). 
+The relative growth in the number of tokens has been highest in 
+Title~4 (Flag and Seal, Seat of Government, and the States), 
+Title~46 (Shipping), 
+and Title~7 (Agriculture).
+
+This gives an interesting first impression on the macro level,
+but the Title headings are so general, 
+and the content placed in the individual Titles is so diverse (e.g., the current Title~42 contains provisions on~Social Security [Chapter~7], Energy Policy [Chapter 134], and Aeronautics and Space Activities [Chapter 155]), 
+that it tells us little about the triggers and the nature of the growth we observe. 
+The situation further deteriorates if we want to compare the German developments with those in the United States: 
+Germany does not codify its federal legislation in a single official collection but publishes only individual acts and classifies them into subject areas for navigation
+(details can be found in Section~1.2 of the~\suppi). 
+The number of consolidated acts with more than $500$ characters (roughly a paragraph, effectively excluding laws with purely formal content) grew from around $1550$ to over $1800$ in the period from 1994 to 2005, 
+then was intentionally shrunk to around $1550$ until 2011,
+and has resumed slow growth since 2011, reaching around $1600$ in 2018---%
+so we do not even see a monotone growth pattern in this data.
+To uncover the sources of the growth of the law, 
+and compare our findings between the United States and Germany,
+we thus need to reorganise the legislative materials of both nations.
+
+\subsection{Clustering for comparative and dynamic analysis}
+\label{subsection:reorganisation}
+
+A first, straightforward way to reorganise the US Code is to aggregate it not at the Title level but rather at the Chapter level. 
+This is especially convenient because the number of Chapters in the US Code is comparable to the number of individual laws in Germany,
+which we only break up into smaller units if they contain several Books (a common feature of large German codifications such as the German Civil Code [BGB] and the German Commercial Code [HGB]).
+The node-link diagrams of the quotient graphs corresponding to this reorganisation for the United States and Germany in 1994 and 2018 are shown in Figure~\ref{fig:us-de-chapter-quotient}.
+In these graphs, nodes share the same colour if they belong to the same \emph{cluster family}.
+Broadly speaking, cluster families are sets of clusters (a cluster is a set of nodes), 
+mostly from different snapshots, 
+which contain many identical, similar, or related rules (cf. Definition~\ref{def:cluster-family} in Section~\ref{subsubsection:methods:temporal})%
+---and as such, they approximate legal topics. 
+We identify cluster families using node and cluster alignments (cf. Section~\ref{subsubsection:methods:temporal}). 
+Cluster families will help us assess which legal topics are driving the growth we report in Section~\ref{subsection:growth}. 
+The cluster family colouring scheme will be used in all remaining graphics; 
+a full legend mapping colours to legal topics can be found in Section 5.1 of the~\suppi. 
+In Figure~\ref{fig:us-de-chapter-quotient}, 
+nodes of the same colour can generally be thought of as belonging together (i.e., \emph{same colour} $\Leftrightarrow$ \emph{(roughly) same legal topic}), 
+and node colours can be compared across years but not across nations (e.g., the legal topic of red nodes in the graphs for the United States may differ from the legal topic of red nodes in the graphs for Germany). 
+
+The node-link diagrams in Figure~\ref{fig:us-de-chapter-quotient} allow us to identify interesting connections between individual parts of the law at the Chapter level---%
+e.g., Book Three of the German Commercial Code (HGB/Drittes Buch), which regulates books of accounts, is much more central as a reference target in 2018 than it was in 1994, 
+and the central role of Title 42, Chapter 6 of the US Code in 1994 (The Children's Bureau) has been taken by Title 42, Chapter 6A (Public Health Service) and Chapter 7 (Social Security) in 2018. 
+But since there are well over $1000$ nodes in both jurisdictions, 
+the quotient graphs are difficult to analyse in their entirety,
+related content remains scattered over different nodes, 
+and the changes between snapshots are difficult to trace.
+Hence, the main conclusion from Figure~\ref{fig:us-de-chapter-quotient} is that the quotient graphs by Title/Chapter (United States) and Law Name/Book (Germany) alone are unsuited to unveil the temporal dynamics of legislative corpora in full detail.
+To coherently group related content and investigate change over time, 
+we thus need a more sophisticated reorganisation method. 
+Therefore, we cluster our annual Chapter quotient graphs for each country based on their cross-references. 
+
+In (non-overlapping) graph clustering, 
+the goal is to divide the elements of the graph (typically the nodes, here: Chapters in the United States and Books or individual laws in Germany) 
+into groups such that elements in the same group are relatively densely connected, 
+whereas elements in different groups are relatively sparsely connected.
+We use the \emph{Infomap} algorithm based on the \emph{map equation} \cite{rosvall2008,rosvall2009} to find our clusters for three reasons. 
+First, in using random walks (i.e, sequences of random steps using the edges of the graph) as a basic ingredient, 
+\emph{Infomap} mimics how lawyers navigate legal texts. 
+The legal navigation process is similar to how scholars navigate papers or web surfers navigate the World Wide Web (WWW), 
+with the additional quirk that sequence edges play a large role in steering the search 
+(think of reading the next paper in the special issue of a journal or clicking through a series of blog posts). 
+Second, by leveraging the connection between finding clusters in a graph and minimizing the description length of a random walk on the graph, \emph{Infomap} has a solid information-theoretic foundation.
+And third, the algorithm scales to large graphs. 
+
+When running \emph{Infomap}, we use the default configuration, with one exception:
+We pass $100$ as a parameter for the preferred number of clusters, 
+which roughly corresponds to the number of top-level categories with which legal databases structure their content.  
+This parameter choice allows us to determine the legal topics driving the growth we observe at a sufficiently high granularity while maintaining an overview of the entire corpus, 
+and it protects against sudden jumps in the cluster granularity between years due to small differences in the description lengths of competing solutions, which are more likely to occur when no preferred cluster size is given. 
+As detailed in the sensitivity analysis included in Section~4.1 of the~\suppi, 
+the precise number of input clusters has little impact on the overall results, 
+as long as the numbers of clusters are comparable across years (e.g., tracing changes between a clustering in which most of the text is contained in $5$ clusters and a clustering with $50$ clusters is an invidious task). 
+To increase the stability of our results, we obtain our final clustering for each country and year as the consensus clustering of $1000$ \emph{Infomap} runs, 
+where the consensus clusters are the connected components of a graph whose nodes are the quotient graph nodes, 
+and whose edges indicate which nodes co-occurred in the same cluster in $95~\%$ of all runs.
+As shown in Section~4.2 of the~\suppi, 
+there is little variance both across those runs and across multiple consensus clusterings using $1000$ runs to find the consensus, 
+indicating that our results are robust against the randomness inherent in the \emph{Infomap} algorithm.  
+
+Based on our consensus clusterings, 
+we can compute alignments between the clusters we find in subsequent snapshots for each of our countries. 
+These \emph{cluster} alignments allow us to track the temporal evolution of individual clusters.
+They are based on \emph{node} alignments of a fine-grained variant of sequence graphs, 
+which leverage that most rules do not change most of the time---%
+i.e., we can match many \emph{seqitems} between adjacent snapshots based on their (nearly) identical texts or (nearly) identical keys. 
+For details on our node alignment heuristic and the cluster alignment procedure that builds upon it, see Section~\ref{subsubsection:methods:temporal}.
+
+The fine-grained year-to-year cluster alignment facilitates a meso-level analysis of the growth reported in Section~\ref{subsection:growth}.
+Figure~\ref{fig:sankey} provides a comprehensive overview of the aligned clusters for the entire United States corpus (an analogue figure for the German corpus can be found in Section~3.3 of the~\suppi): 
+The corpus in a certain year is modelled by a horizontal bar, 
+which is composed of blocks representing clusters with width proportional to the number of tokens they contain.
+The year-to-year movement of tokens between clusters---%
+i.e. the volume of text associated with one cluster in one year and another cluster in the next year, identified using the alignment between the items below the \emph{seqitem} level (\emph{subseqitems}) of the clusters---% 
+is indicated by splines connecting the blocks of adjacent years, 
+where we only plot token movements corresponding to at least $15~\%$ of the tokens from both the ingoing and the outgoing cluster to filter out noise and isolate largely self-contained strands of the law as cluster families (see also Section~\ref{subsubsection:methods:temporal}).
+The width of the plotted splines is again proportional to the number of tokens moving.
+Within each horizontal bar, 
+the blocks representing the clusters are sorted in descending order by their size, 
+i.e., the clusters with the largest numbers of tokens are always pushed to the left.
+To reduce visual clutter, we summarize very small clusters in one  \emph{miscellaneous} cluster. 
+This cluster is always the rightmost cluster, depicted in light grey; 
+more information on its contents can be found in Section~5.2 of the~\suppi. 
+The blocks and splines belonging to the $20$ largest cluster families are uniquely coloured, 
+whereas smaller cluster families are alternately coloured in alternating greys.
+The absolute growth of the United States corpus is reflected in the increasing width of the bars over time, 
+whereas changes in cluster compositions and relative cluster sizes are visible as diagonal year-to-year movements.  
+
+Inspecting the numbers behind Figure~\ref{fig:sankey}, 
+we find that our clusters grow linearly with respect to their size, 
+i.e., bigger clusters gain more tokens than smaller clusters, 
+but that the growth rates differ depending on the legal topic represented by the cluster. 
+To understand which legal topics are driving the overall growth, 
+we determine the growth rate of our cluster families via an ordinary least squares (OLS) regression.
+We select the 20 largest cluster families for both countries,
+where the size of a cluster family is the size of its largest cluster (measured in tokens), called its \emph{leading cluster}.
+For each of these cluster families, we inspect its content composition, 
+and label it with the dominant legal topic.
+More information on our labelling process, including a list of all labels, can be found in Section~5.1 of the~\suppi.
+Together, the labelled cluster families account for roughly $50~\%$ of the total growth in the United States and roughly $80~\%$ of the total growth in Germany.
+Figure~\ref{fig:legislative-growth-cluster} displays a selection of the most and least growing cluster families in the United States and Germany,
+while detailed results can be found in Section~3.4 of the~\suppi. 
+The colouring scheme for the United States is identical to that used in Figure~\ref{fig:sankey}, 
+while the colours for Germany are chosen to match those for the United States for similar topics and avoid colour clashes otherwise.
+
+Notably, in both jurisdictions, 
+growth rates are highest for the cluster families concerning social welfare and financial regulation, 
+and cluster families dealing with taxes, environmental protection, and immigration also display strong growth in both countries.
+In addition to these similarities, we also find some differences in the growth patterns of both countries. 
+As one might expect, 
+the United States has cluster families concerned with Native Americans (shrinking) and student loans (growing),
+while no analogous families exist in Germany.
+Likewise, Germany has a cluster family concerned with war restitution (shrinking) that has no counterpart in the United States.
+The unmatched growth of the criminal law and corporate and insurance law cluster families in Germany, which may be counterintuitive at first sight, 
+is probably a result of differences in legislative competencies (criminal law and corporate law including insurance are largely state law in the United States, while they are federal law in Germany).
+In addition, insurance regulatory law on the federal level in the United States is primarily enforced through federal regulations, 
+which are not part of our dataset as they are kept in a separate collection (the Code of Federal Regulations).
+That the United States has a growing cluster family concerned, inter alia, with foreign assistance and export control will not surprise those working in international development or international politics, 
+and the fast-growing cluster dealing with renewable energy, power grid regulation, and related administrative procedures in Germany will not surprise those following the nation's political discourse (although in both cases, the unexpectedness could be impacted by hindsight bias).
+Overall, the differences we observe seem to be in line with differences in the prominence of certain policy debates in both countries,
+reflecting social, political, and cultural divergences.  
+As such, they invite in-depth analysis by subject matter experts.
+
+Finally, the year-to-year cluster alignment underlying Figure~\ref{fig:sankey} allows us to observe different types of growth.
+For example, some clusters or cluster families witness \emph{intrinsic growth}, 
+i.e., growth by addition of tokens without large gains of tokens from other areas; 
+the cluster family containing veteran's benefits is a case in point, 
+as is a cluster family on small business support and civil and military public procurement.
+Such cluster families, which have been rather self-contained in the past $25$ years, address issues of sustained or increasing societal importance.
+Other clusters or cluster families, however, witness \emph{extrinsic growth}, 
+i.e., growth by gaining tokens from clusters in other families.
+One example is a United States cluster concerned with the environmental protection of national parks and rivers, 
+which grew substantially when rules about national forests as well as prospecting permits and leases joined it from clusters concerned with forestry and mining, 
+indicating a shift in perspective from land use as resource exploitation to land use as resource conservation. 
+To capture such differences in change processes, 
+an elaborate cluster change event taxonomy is needed. 
+Such a taxonomy could build on the work by Palla et~al. \cite{palla2007},
+and developing it provides an interesting opportunity for further research.

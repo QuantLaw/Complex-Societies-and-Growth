@@ -1,0 +1,765 @@
+% !TeX spellcheck = en_GB
+% !TeX root = ../si-scirep.tex
+%\section*{Supplementary Information}
+%\label{section:si}
+
+\section{Data sources}
+
+\subsection{United States}
+
+For the United States, 
+we use the United States Code (US Code) as our data source. 
+The US Code is a compilation of the general and permanent laws of the United States on the federal level, excluding state legislation.
+The Office of the Law Revision Counsel of the U.S. House of Representatives (Office) updates the code continuously and publishes annual versions. 
+When Congress passes new legislation, 
+this legislation is initially published as a \emph{Slip Law} in the \emph{United States Statutes at Large}. 
+If the new legislation is considered general and permanent law, the Office integrates the law into the US Code.
+Depending on the Titles of the Code that are modified, 
+the work of the Office is approved by Congress, 
+whereby the \emph{Slip Law} is repealed and replaced by the US Code as the new primary source of the law. 
+In other cases, the US Code is still presumed to be the correct consolidation of the law.
+
+We base our work on the Annual Historical Archives published by the Office, 
+which are available on its website:  \url{https://uscode.house.gov/download/annualhistoricalarchives/annualhistoricalarchives.htm}.\newline
+The US Code is provided in (X)HTML format as documented at \url{https://uscode.house.gov/download/resources/USLM-User-Guide.pdf}. 
+The format is flexible and offers a wide variety of styles to closely represent the printed code. 
+The code is split into single files per year and Title.
+The Annual Historical Archives date back until 1994, 
+and they are published with delay. 
+As of 2020, therefore, 2018 is the latest available edition/supplement.
+ 
+While surveying and validating the raw data, we observe and correct the following obvious errors:
+\begin{itemize}[itemsep=0em, parsep=0em, topsep=0em,label=--]
+\item double-closing \texttt{<div>}-Tags in Title 40 in 2008, and in Title 42 in 1994 and 1995,
+\item inconsistent metadata in the appendix of Title 28 in 2017,
+\item a duplicate of Title 12 in 1998 that is included in files regarding Title 11 and 12, and
+\item inconsistencies regarding the tags \texttt{<statute>} and the comments \texttt{<!-- \/section-head -->}. 
+\end{itemize}
+
+\subsection{Germany}
+
+In Germany,
+all laws are published in the Federal Law Gazette as amending laws,
+which often combine numerous introductions of new as well as changes to and repeals of existing laws.
+Individual laws are officially classified into one of nine substantive categories with currently 73 sub-categories containing over 400 subject areas in the ``Fundstellennachweis A'' [engl. Finding Aids A].
+These are published on a yearly basis by the Federal Law Gazette upon instruction by the Ministry of Justice.
+However, unlike the US Code, there is no official data source that provides all compiled general and permanent laws at the federal level and
+their historical versions.
+Therefore, we cooperate with the leading German legal data provider, \emph{juris GmbH}, 
+to obtain a dataset similar to the annual versions of the US Code. 
+Although \emph{juris} is a private company, 
+the Federal Republic of Germany is its majority shareholder, 
+and all branches of government rely heavily on \emph{juris} to process legislative data. 
+According to \emph{juris}, the database contains every German federal law since spring 1990. 
+Compared to the US Code, the data is not as structured. 
+Instead of providing annual consolidated versions, \emph{juris} provides a new version of a law for all changes that take effect on the same day.
+The data we obtained comes in separate files for each law and version.
+
+We may not share the text content of the German dataset together with this paper.
+However, a website maintained by the German Federal Ministry of Justice and Consumer Protection in collaboration with \emph{juris} (\url{https://www.gesetze-im-internet.de}) 
+provides almost the entire federal legislation as XML files in the most recent version (i.e., without historical versions).
+A daily archive of the XML files provided on this website (starting in June 2019) is available at \url{https://github.com/QuantLaw/gesetze-im-internet}.
+This dataset allows a partial reproduction of the research with a similar dataset.
+We requested the full dataset from \emph{juris GmbH}, 
+which required a dedicated contractual framework and non-disclosure agreement to be signed.
+
+\subsection{Samples of Legal Texts}
+\label{subsec:textsamples}
+
+The following fragments illustrate the inherent structure of legal texts. 
+Inclusion relationships are marked by indentation, 
+labels of \emph{seqitems} are typeset in \textsc{small capitals}, 
+cross-references are \underline{underlined},
+and text content is set in \emph{Italics}.\\
+
+\noindent\hspace*{0.04\textwidth}\fbox{%
+	\parbox{0.9\textwidth}{%
+		\textbf{United States Code (2018 Main Edition dated January 14, 2019)}
+		
+		\hspace*{1em}Title 12—Banks and Banking
+		
+		\hspace*{2em}Chapter 42—Low-Income Housing Preservation and Resident Homeownership
+		
+		\hspace*{3em}Subchapter I—Prepayment of Mortgages Insured under National Housing Act
+		
+		\hspace*{4em}\textsc{§4101. General prepayment limitation}
+		
+		\hspace*{5em}(a) Prepayment and termination
+		
+		\noindent\hangindent6em\hspace{6em}\emph{An owner of eligible low-income housing may prepay, and a mortgagee may accept prepayment of, a mortgage on such housing only in accordance with a plan of action approved by the Secretary under this subchapter or in accordance with \underline{section 4114 of this title}. An insurance contract with respect to eligible low-income housing may be terminated pursuant to \underline{section 1715t of this title} only in accordance with a plan of action approved by the Secretary under this subchapter or in accordance with \underline{section 4114 of this title}.}
+		
+		\hspace*{5em}\dots
+		
+		\hspace*{4em}\dots
+		
+		\hspace*{4em}\textsc{§4105. Federal cost limits and limitations on plans of action}
+		
+		\hspace*{5em}(a) Determination of relationship to Federal cost limits
+		
+		\hspace*{6em}(1) Initial determination
+		
+		\noindent\hangindent7em\hspace{7em}\emph{For each eligible low-income housing project appraised under \underline{section 4103(a) of this title}, the Secretary shall determine whether the aggregate preservation rents for the project determined under \underline{paragraph (1) or (2) of section 4104(b) of this title} exceed the amount determined by multiplying 120 percent of the fair market rental (established under \underline{section 1437f(c) of title 42}) for the market area in which the housing is located by the number of dwelling units in the project (according to appropriate unit sizes).}
+	}
+}
+
+\noindent\hspace*{0.04\textwidth}\fbox{%
+	\parbox{0.9\textwidth}{%
+		\textbf{German Civil Code (official translated version dated October 1, 2013)}
+		
+		\hspace{1em}Book 1---General Part
+		
+		\hspace{2em}Division 1---Persons
+		
+		\hspace{3em}Title 1---Natural persons, consumers, entrepreneurs
+		
+		\hspace{4em}\textsc{Section 1---Beginning of legal capacity}
+		
+		\hspace{5em}\emph{The legal capacity of a human being begins on the completion of birth.}
+		
+		\hspace{4em}\textsc{Section 2---Beginning of majority}
+		
+		\hspace{5em}\emph{Majority begins at the age of eighteen.}
+		
+		\hspace{4em}\dots
+		
+		\hspace{3em}Title 2---Legal persons
+		
+		\hspace{4em}Subtitle 1---Associations
+
+		\hspace{5em}Chapter 1---General provisions
+		
+		\hspace{6em}\dots
+		
+		\hspace{6em}\textsc{Section 40 ---Flexible provisions}
+		
+		\noindent\hangindent7em\hspace{7em}\emph{The provisions of \underline{section 26 (2) sentence 1}, \underline{section 27 (1) and (3)}, \underline{sections 28 and 31a (1) sentence 2}, as well as \underline{sections 32, 33 and 38}, do not apply where otherwise provided by the articles of association. It is not possible to derogate from \underline{section 34} through the articles of association, even for the passing of resolutions by the board.}
+	}
+}
+
+\section{Data preprocessing}
+
+We convert the source data into a structured format that facilitates access for our purposes, 
+removes unnecessary details (especially most of the style information for the text),
+and unifies the data format across both countries. 
+For the purposes of our analysis, 
+we focus on three properties that characterise the structure of legislative texts (illustrated in Section~\ref{subsec:textsamples} above):
+
+\begin{enumerate}
+	\item \emph{Hierarchy:} They are nested, e.g., into Titles, Sections, Subsections, Paragraphs, and Subparagraphs.
+	\item \emph{Reference:} They are interlinked, e.g., one Section can reference (the label of) another Section in its text.
+	\item \emph{Sequence:} They are ordered, e.g., Sections have unique labels, and they appear in the text in ascending order of their labels.
+\end{enumerate}
+
+To make these properties easily accessible in our data, 
+we perform the following preprocessing steps for each dataset:
+
+\subsection{Clean the text}
+
+First, we remove all formatting, annotations, notes, and metadata from the text, 
+with the exception of formatting and metadata that we need to extract the hierarchy in the next step. 
+For the United States, this results in a more conservative definition of legal text than in \cite{bommarito2010a}, which explains the difference between the reported token counts.
+As the German data is not consistently formatted on a more detailed level than text paragraphs (meaning one level below § or Articles), we do not preserve formatting below the paragraph level for this dataset.
+
+\subsection{Extract the hierarchies}
+
+Using the remaining text, formatting, and metadata, 
+we extract the hierarchy, i.e., 
+we identify boundaries of elements (Chapters, Parts, Sections, etc.) that structure the code, 
+determine their parents (Titles, Chapters, Parts, etc.) and, 
+if present, their headings (including the alphanumeric ordering identifier), 
+and retrieve their children or textual content. 
+With this information, 
+we generate an XML representation of the code 
+in which the text and structural elements are nested inside their respective parents. 
+
+Our data contains explicit information regarding the boundaries and nesting of structural elements above the Section level in its metadata. 
+We rely on this metadata down to the Paragraph level in Germany 
+and down to the Section level for the United States.
+Below the Section level in the United States, we exploit the formatting to derive a nesting of the text. 
+Extracting the hierarchy information from the metadata yields all information required to build our hierarchy graphs.
+
+\subsection{Extract the cross-references}
+
+Next, we extract all explicit cross-references in the statutory texts that match a common citation format. 
+To simplify the process, we perform the extraction in three steps:
+
+\begin{enumerate}
+
+\item \emph{Find}: We identify parts of the text that contain a potential reference to another text in the same statutory collection. 
+We define country specific regular expressions (\emph{regex}) patterns to find the referencing parts. 
+
+Our pattern for the US Code is rather simple, 
+as references are mostly formatted consistently and include no headings or names but only numbers (and potentially letters of alphanumeric enumerations). 
+The pattern for Germany is more sophisticated. 
+The start of a reference is easy to identify as references normally begin with ``§'' or ``Art.''. 
+The part of the reference that follows may contain numbers (and letters of alphanumeric enumerations) as well as units (e.g., Satz [engl. sentence], Nummer [engl. number]). 
+In the case of a reference to a text in a different law, the reference is followed by the name of the law. 
+A list of the law names is generated from the source data, 
+but it includes only laws valid at the time the analysed law takes effect. 
+Furthermore, 
+references to other national regulations, EU legislation, etc., are filtered out,
+so that only references within a law and to other laws that are part of the collection remain. 
+Detailed documentation regarding the citation format in German laws can be found in the ``Handbuch der Rechtsförmlichkeit'' [engl. Handbook of Legal Formalism] of the Federal Ministry of Justice and Consumer Protection: \url{https://www.bmjv.de/DE/Themen/RechtssetzungBuerokratieabbau/HDR/HDR_node.html}.
+Since this guide is not strictly followed by the legislator, 
+we used this guide along with the actual data to develop our extraction method.
+
+\item \emph{Parse}: We parse the referencing texts and derive citation keys (\emph{cite keys}) that, for the US Code, consist of a Title and a Section of the referenced text.
+In the German case, the keys are composed of the abbreviation of the referenced law and the number of the cited § or Article.
+One reference identified in the first step may contain several such citation keys.
+
+\item \emph{Align}: We identify the target structural elements of the parsed references.
+To accomplish this, we generate citation keys for each Section, 
+§, or Article that can be referenced by a specific version of a law.
+In the United States, a Section can be referenced if its structural element is part of the same annual version of the US Code.
+In Germany, the structural element must be part of a valid law when the analysed law takes effect.
+\end{enumerate}
+
+\subsection{Generate XML files}
+
+We store each preprocessed Title in the United States and each law in Germany in a separate XML file. 
+The XML files comply with the following XSD specification:
+
+\lstset{basicstyle=\small}
+\lstinputlisting{xml-schema.xsd}
+
+\subsection{Generate graphs}
+
+We use the XML files along with information regarding the annual version the file belongs to (in the United States) 
+or the validity period of a specific version of a law (in Germany)
+to generate our hierarchy graphs and our reference graphs. 
+We produce these graphs for each annual version of the US Code, 
+and for snapshots of the German data taken at the first day of each year from 1994 to 2018.
+For the German data, we can generally produce hierarchy graphs and reference graphs for each day in the period under study; 
+the chosen dates are designed to match the United States data.
+The sequence graphs and the quotient graphs are derived from the reference graphs as simple transformations.
+All our graphs are generated using NetworkX (\url{https://networkx.github.io}) and can be exported, e.g.,
+as GraphML files (\url{http://graphml.graphdrawing.org/specification.html}). 
+
+\section{Figure generation}
+
+\subsection{Main paper Figure~3} % US TITLE VIZ
+
+Figure~3 from the main paper %\ref{fig:us-tokens-per-title} 
+visualises the size of individual Titles of the US Code for every fourth year, 
+starting from 1994. 
+Title~53, which is missing in the legend, has been empty throughout the period under study.
+In the main paper, %\ref{fig:us-tokens-per-title} 
+we illustrate the size of Titles based on tokens.
+In Figure~\ref{fig:us-other-per-title}, 
+we show the size of Titles based on other measures, 
+namely, structural elements, outgoing references to other Titles, ingoing references from other Titles, and internal references.
+
+In all of the graphics, $12$ colours rotate to mark the different Titles.
+Since colours are reused, the position of a bar must be taken into account when reading the legend.
+The Titles are plotted in a horizontally stacked bar chart, 
+following their original order from left to right, i.e., starting with Title~1 on the very left.
+
+\subsection{Main paper Figure~4} % NODE-LINE
+
+Figure~4 from the main paper %\ref{fig:us-de-chapter-quotient} 
+shows graphs representing the Chapters of the US Code or German laws as nodes.
+If a German law contains Bücher (engl. Books) at the highest hierarchy level, 
+we split the law into its Books and use the Books as nodes.
+Arrows between nodes indicate that the text of one node cites the text of another.
+The opacity of an arrow indicates the number of references that are summarised in this arrow.
+These nodes and weighted edges visualise the major part of the data we run the \emph{Infomap} clustering algorithm on.
+However, here, we hide nodes containing less than $5000$ tokens (which are included for the clustering).
+
+In the figure, 
+we colour nodes by their cluster family, and colours are comparable across years but not across countries. 
+We encode the number of tokens contained in a node by its area,
+which is comparable between the four graphs in Figure~4 from the main paper. %\ref{fig:us-de-chapter-quotient}. 
+The opacity of edges is individually scaled for each graph to cover the full range of opacity. 
+The minimal and maximal values can be found in Table~\ref{tab:us-de-quotient-min-max}.
+
+\newpage
+
+\begin{figure}[H]
+	\vspace*{-16pt}\centering
+	\begin{subfigure}{0.9\linewidth}
+		\includegraphics[width=\linewidth]{us-structures-with-subseqitems-per-title.pdf}
+	\end{subfigure}
+	\begin{subfigure}{0.9\linewidth}
+		\includegraphics[width=\linewidth]{us-outdegree-per-title.pdf}
+	\end{subfigure}
+	\begin{subfigure}{0.9\linewidth}
+		\includegraphics[width=\linewidth]{us-indegree-per-title.pdf}
+	\end{subfigure}
+	\begin{subfigure}{0.9\linewidth}
+		\includegraphics[width=\linewidth]{us-internal-references-per-title.pdf}
+	\end{subfigure}
+	\caption{Federal legislation in the United States by Title (1994--2018), measured in structural units.}
+	\label{fig:us-other-per-title} 
+\end{figure}
+
+\begin{table}[H]
+	\centering
+	\input{../graphics/graph-min-max-table.tex}
+	\caption{Minimal and maximal values of the raw data for each graph in Figure~4 from the main paper %\ref{fig:us-de-chapter-quotient} 
+		and Figure~\ref{fig:us-de-cluster-quotient}.
+		The opacity of arrows is scaled based on the edge weight extrema.
+	}
+	\label{tab:us-de-quotient-min-max}
+\end{table}
+
+To position the nodes, we use the Fruchterman-Reingold force-directed layout algorithm as implemented in \texttt{NetworkX} with an optimal distance between nodes of $k=2.2$ and a seed of $1234$ feeded by \texttt{numpy}.
+
+In a similar spirit, Figure~\ref{fig:us-de-cluster-quotient} visualises the result of the clustering.
+In general, the graphic is generated like Figure~4 from the main paper, %\ref{fig:us-de-chapter-quotient}, 
+but now, each node represents a cluster.
+For the 1994 graphs, 
+nodes smaller than $100000$ tokens are hidden, 
+whereas for the 2018 graphs, 
+we hide nodes smaller than $150000$ tokens.
+Moreover, the node size scaling is $40$ times smaller than in Figure~4 from the main paper.%\ref{fig:us-de-chapter-quotient}.
+
+\subsection{Main paper Figure~5} % SANKEY
+
+Figure~5 from the main paper %\ref{fig:sankey} 
+provides an overview of how the US Code developed over the last 25 years in an alluvial plot.
+It is based on the family graph $F^i$ for $i=\text{US}$.
+
+We limit the number of clusters per year to 50 and condense smaller clusters into one additional cluster per year (the \emph{miscellaneous} cluster),
+to focus on large and medium size clusters.
+Moreover, we combine multiple edges between clusters summarised in the miscellaneous cluster into one.
+
+The clusters are ordered vertically by year.
+Horizontally, we sort them from left ot right by decreasing size, 
+then force the miscellaneous cluster to the right as it condenses the smallest clusters.
+The clusters for one year are visualised as horizontally stacked bars.
+The height is fixed and the width indicates the size of the respective cluster in tokens.
+The horizontal width of edges indicates the weight of an edge in tokens.
+The scale mapping tokens to width is identical for nodes and edges in one alluvial plot but it differs across countries
+because the year with the most tokens in each collection is scaled to the same width.
+Clusters are labelled by numbers that represent the order in which our consensus clustering implementation reported the clustering results.
+They match the numbering in Figure~\ref{fig:us-de-cluster-quotient} and should be interpreted on a nominal scale.
+
+The cluster identifiers are hidden in Figure~5 from the main paper. Figure~\ref{fig:sankey-us-labels} is a copy of this figure including identifiers for detailed inspection, 
+and Figure~\ref{fig:sankey-de-labels} is its analogue for Germany.
+HTML files in the data repository accompanying this paper describe the content of the clusters. 
+They show the absolute size in tokens of each cluster and its size relative to the whole dataset for one year and country. 
+The summarised elements (Chapters or laws and Books) of each cluster are listed by their path (e.g., TITLE 42-THE PUBLIC HEALTH AND WELFARE / CHAPTER 6-THE CHILDREN'S BUREAU) and their size relative to the whole cluster.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{community-graph-1994-us.pdf}~%
+		\subcaption{United States (1994)}
+	\end{subfigure}~%
+	\begin{subfigure}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{community-graph-1994-de.pdf}~%
+		\subcaption{Germany (1994)}
+	\end{subfigure}
+	\begin{subfigure}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{community-graph-2018-us.pdf}~%
+		\subcaption{United States (2018)}
+	\end{subfigure}~%
+	\begin{subfigure}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{community-graph-2018-de.pdf}~%
+		\subcaption{Germany (2018)}
+	\end{subfigure}
+	% P: caption package incompatible with revtex
+	\captionsetup{justification=raggedright} 
+	\caption{Federal legislation in the United States and Germany: quotient graphs by cluster (1994 and 2018),
+		with arrows running between nodes indicating that text contained in one node cites text contained in another node.
+		Node sizes indicate token counts (larger $=$ more tokens), where only nodes with at least $100000$ tokens for 1994 and $150000$ tokens for 2018
+		are shown. 
+		Arrow colours indicate numbers of outgoing references (darker $=$ more references). 
+		For each nation separately, nodes share the same colour if they are placed in the same cluster family,
+		and nodes not in one of the $20$ largest cluster families are coloured in grey.
+	}
+	\label{fig:us-de-cluster-quotient}
+\end{figure}
+
+Nodes and edges of the 20 largest cluster families are coloured by their relationship. 
+Other nodes and edges are coloured in alternating greys. 
+The miscellaneous node is coloured in light grey.
+Edges are plotted with opacity $0.5$ and in increasing order of their weight, 
+with the largest edges plotted last.
+
+
+
+\subsection{Main paper Figure~6} % CLUSTER FAMILIES
+
+Figure~6 from the main paper %\ref{fig:legislative-growth-cluster} 
+and Figure~\ref{fig:legislative-growth-cluster-top20} illustrate in scatter plots how the sizes of the cluster families evolve during the observation period.
+Figure~\ref{fig:legislative-growth-cluster-top20} shows cluster family sizes for the 20 largest cluster families in each collection (United States and Germany),
+where the size of a cluster family is the size of the largest cluster it contains. 
+Figure~6 from the main paper %\ref{fig:legislative-growth-cluster} 
+visualises a selection of the most and the least growing cluster families among the 20 largest families to facilitate interpretation. 
+The growth of a cluster family is determined by the slope of an OLS regression for each cluster family $V^i_{F,j}$ on the cluster family sizes $|V^i_{F,j,t}|$ at times $\{~t~\in~T~\}$, 
+where $T$ is the observation period.
+
+The resulting intercepts and regression slopes are shown as lines in Figure~6 from the main paper %\ref{fig:legislative-growth-cluster} 
+and in Figure~\ref{fig:legislative-growth-cluster-top20}.
+The points and lines for one cluster family have the same colours in both graphics.
+In Figure~\ref{fig:legislative-growth-cluster-top20}, 
+colours are reused.
+To enable a mapping of lines to the legend, 
+we order the legend according to the value expected by the OLS regression in 2018.
+
+In Figure~\ref{fig:legislative-growth-cluster-top20}, 
+we label cluster families by year and number of the largest cluster they contain (which also determines the overall size of the cluster family, see Definition~6 from the main paper).
+For the purposes of Figures~6 from the main paper,  %\ref{fig:legislative-growth-cluster}, 
+we manually assign labels to the cluster families. 
+Here, we derive a topic from the names and token shares of Chapters, books, and laws comprising the cluster family.
+
+Figure~\ref{fig:legislative-growth-cluster-stats} shows the mean size of the 20 largest cluster families in relation to their slope derived by the OLS regressions as a scatter plot.
+We add a regression line and indicate the 95~\% confidence interval using translucent bands around that regression line.
+Detailed statistics regarding the regression in Figures~6 from the main paper %\ref{fig:legislative-growth-cluster}
+and Figure~\ref{fig:legislative-growth-cluster-top20}, 
+and regarding the source data of Figure~\ref{fig:legislative-growth-cluster-stats}, 
+are provided in Table~\ref{tab:cluster-family-growth-stats}.
+
+\newpage
+
+\begin{figure}[H]
+	\centering
+	\vspace*{-16pt}\includegraphics[width=0.9\textwidth]{sankey_us_0-0_1-0_-1_a-infomap_n100_m1-0_s0_c1000_labels.pdf}
+	\caption{%
+		Federal legislation in the United States by cluster (1994--2018), 
+		with cluster numbers to enable content inspection (cf. Section~\ref{sec:labelling}). 
+		Each block in each year represents a cluster. 
+		Clusters are ordered from left to right by decreasing size (measured in tokens) and coloured by the cluster family to which they belong, 
+		where clusters not in one of the $20$ largest cluster families are coloured in alternating greys. 
+		Small clusters are summarised in one miscellaneous cluster, which is always the rightmost cluster and coloured in light grey.
+	}
+	\label{fig:sankey-us-labels}
+\end{figure}
+
+\newpage
+
+\begin{figure}[H]
+	\centering
+	\vspace*{-16pt}\includegraphics[width=0.9\textwidth]{sankey_de_0-0_1-0_-1_a-infomap_n100_m1-0_s0_c1000_labels.pdf}
+		\caption{%
+		Federal legislation in Germany by cluster (1994--2018), 
+		with cluster numbers to enable content inspection (cf. Section~\ref{sec:labelling}). 
+		Each block in each year represents a cluster. 
+		Clusters are ordered from left to right by decreasing size (measured in tokens) and coloured by the cluster family to which they belong, 
+		where clusters not in one of the $20$ largest cluster families are coloured in alternating greys. 
+		Small clusters are summarised in one miscellaneous cluster, which is always the rightmost cluster and coloured in light grey.
+	}
+	\label{fig:sankey-de-labels}
+\end{figure}
+
+
+\begin{table}[H]
+	\centering
+	\small
+	\input{../graphics/cluster_family_growth_stats.tex}
+	\caption{Statistics regarding the OLS regressions in Figure~6 from the main paper %\ref{fig:legislative-growth-cluster} 
+		and Figure~\ref{fig:legislative-growth-cluster-top20}.
+		The p-value column shows a two-sided p-value for a hypothesis test whose null hypothesis is that the slope is zero, using the Wald Test with t-distribution of the test statistic.} 
+	\label{tab:cluster-family-growth-stats}
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{cluster-evolution-size-dynamics-us-0-0_1-0_-1_a-infomap_n100_m1-0_s0_c1000-top20.pdf}~%
+		\subcaption{United States}
+	\end{subfigure}~%
+	\begin{subfigure}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{cluster-evolution-size-dynamics-de-0-0_1-0_-1_a-infomap_n100_m1-0_s0_c1000-top20.pdf}~%
+		\subcaption{Germany}
+	\end{subfigure}
+	\caption{Federal legislation in the United States and Germany: growth statistics by cluster family (1994--2018).}
+	\label{fig:legislative-growth-cluster-top20}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{cluster-evolution-slope-size-regression-us-top20.pdf}~%
+		\subcaption{United States}
+	\end{subfigure}~%
+	\begin{subfigure}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{cluster-evolution-slope-size-regression-de-top20.pdf}~%
+		\subcaption{Germany}
+	\end{subfigure}
+	\caption{Federal legislation in the United States and Germany: slope-to-size correlation by cluster family (1994--2018).
+	}
+	\label{fig:legislative-growth-cluster-stats}
+\end{figure}
+
+\newpage
+
+\section{Clustering algorithm parametrisation}
+
+In the following, we analyse the performance of our clustering algorithm under different parameter choices to ensure that our results are not artefacts of our parametrisation. 
+The statistics we report are based on the Normalized Mutual Information (NMI) and Adjusted Rand Index (ARI)%
+---two metrics that are commonly used for pairwise comparisons of clustering results.
+
+NMI is an information-theoretic measure expressing how much information is shared between two clusterings.
+It is scaled to range between $0$ (not similar at all) and 1 (identical), and defined as
+\begin{align*}
+\text{NMI}(X;Y) = \frac{I(X;Y)}{\sqrt{H(X)H(Y)}}~,
+\end{align*}
+where $I(X;Y) = H(X;Y)-H(X\mid Y)-H(Y\mid X)$ is the mutual information between $X$ and $Y$, $H(X;Y)$ is the joint entropy of $X$ and $Y$, 
+$H(X)$ and $H(Y)$ are the individual entropies, 
+and $H(X\mid Y)$ and $H(Y\mid X)$ are the conditional entropies.
+For more information on this measure, see \cite{strehl2002}.
+
+The ARI is variant of the Rand Index (RI) adjusted for chance. 
+The Rand Index is based on counting how many pairs of nodes are in the same clusters or in different clusters in both clusterings. 
+It is defined as
+\begin{align*}
+\text{RI}(X;Y) = \frac{a+b}{a+b+c+d}~,
+\end{align*}
+where $a$ is the number of node pairs that appear in the same cluster in both clusterings, 
+$b$ is the number of node pairs that appear in different clusters in both clusterings, 
+$c$ is the number of node pairs that appear in the same cluster in $X$ but in different clusters in $Y$, and
+$d$ is the number of node pairs that appear in different clusters in $X$ but in the same cluster in $Y$. 
+The ARI is defined as
+\begin{align*}
+\text{ARI}(X;Y) = \frac{\text{RI}(X;Y) - \mathbb{E}[\text{RI}(X;Y)]}{1 - \mathbb{E}[\text{RI}(X;Y)]}~,
+\end{align*}
+where $\mathbb{E}[\text{RI}(X;Y)]$ is the expected RI when assuming that the $X$ and $Y$ partitions are constructed randomly, 
+subject to having the original number of clusters and the original number of nodes in each cluster.
+While the RI ranges between $0$ and $1$, the ARI is bounded from above by $1$ but may take negative values when the agreement between the clusterings is less than expected. 
+Unrelated clusterings have an ARI close to $0$ and identical clusterings have an ARI of $1$. 
+More information on this measure can be found in \cite{hubert1985}.
+
+\subsection{Sensitivity analysis}
+
+Figure~\ref{fig:sensitivity-preferred-clusters} shows how the clustering results change when we alter the preferred number of clusters, 
+with our chosen number of clusters as the baseline. 
+As preferred numbers of clusters, we test all numbers divisible by $10$ from $10$ to $150$ as well as the number $200$. 
+In one experiment, labelled \emph{auto}, we let the \emph{Infomap} algorithm choose the preferred number of clusters.
+Unsurprisingly, the box plots show that clusterings become more similar to our baseline clustering with $100$ preferred clusters as we approach this number. 
+At the same time, clusterings with $50$ or $200$ preferred clusters are already relatively similar to the baseline, with NMI values over $0.96$ and ARI values over $0.7$. 
+
+Note that the spread in clustering similarities is largest for comparisons of the baseline with \emph{auto}, i.e., the clusterings in which \emph{Infomap} chooses the preferred number of clusters.
+This is likely due to the jumps in clustering granularity that sometimes occur in \emph{Infomap} due to small differences in the minimum description length of competing models with different resolutions.
+Avoiding these jumps is our primary motivation for specifying a preferred number of clusters.
+
+Figure~\ref{fig:sankey-preferred-variants} shows how the compositions of cluster families change if we choose $50$ or $200$, rather than $100$ preferred clusters, or let the algorithm determine the preferred number of clusters.
+As should become clear by visual inspection, the overall picture remains the same.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{preferred_number_of_modules_nmi_us}
+		\subcaption{United States (Normalised Mutual Information)}
+	\end{subfigure}~%
+	\begin{subfigure}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{preferred_number_of_modules_nmi_de}
+		\subcaption{Germany (Normalised Mutual Information)}
+	\end{subfigure}
+	\begin{subfigure}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{preferred_number_of_modules_rand_us}
+		\subcaption{United States (Adjusted Rand Index)}
+	\end{subfigure}~%
+	\begin{subfigure}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{preferred_number_of_modules_rand_de}
+		\subcaption{Germany (Adjusted Rand Index)}
+	\end{subfigure}
+	\caption{Distribution of pairwise similarities between clusterings with different preferred cluster sizes in the same year over the $25$ years from $1994$ to $2018$. 
+		\emph{Auto} indicates that the \emph{Infomap} algorithm chooses the preferred number of clusters.
+		Note that only the box plots labelled $10$ through $150$ are equidistant to each other on the real line. 
+		The $y$-coordinates of the box boundaries indicate the second and fourth quartile, while the red line indicates the median. 
+		Upper whiskers extend to the last data point less than $1.5$ times the box height above the fourth quartile, 
+		while lower whiskers extend to the first data point less than $1.5$ times the box height below the first quartile.
+	}\label{fig:sensitivity-preferred-clusters}
+\end{figure}
+
+\newpage
+
+\begin{figure}[H]
+	\vspace*{-16pt}
+	\centering
+	\begin{subfigure}{0.45\linewidth}
+		\includegraphics[width=\linewidth]{sankey_us_0-0_1-0_-1_a-infomap_n50_m1-0_s0_c1000}
+		\subcaption{50 preferred clusters}
+	\end{subfigure}~%
+	\begin{subfigure}{0.45\linewidth}
+		\includegraphics[width=\linewidth]{sankey_us_0-0_1-0_-1_a-infomap_n100_m1-0_s0_c1000}
+		\subcaption{100 preferred clusters}
+	\end{subfigure}
+
+	\begin{subfigure}{0.45\linewidth}
+		\includegraphics[width=\linewidth]{sankey_us_0-0_1-0_-1_a-infomap_n200_m1-0_s0_c1000}
+		\subcaption{200 preferred clusters}
+	\end{subfigure}~%
+	\begin{subfigure}{0.45\linewidth}
+		\includegraphics[width=\linewidth]{sankey_us_0-0_1-0_-1_a-infomap_m1-0_s0_c1000}
+		\subcaption{Algorithm determines number of clusters}
+	\end{subfigure}
+\caption{Federal legislation in the United States by cluster (1994--2018), depicted as in Figure~5 from the main paper, for different preferred numbers of clusters.}
+\label{fig:sankey-preferred-variants}
+\end{figure}
+
+\newpage
+
+\subsection{Robustness checks}
+
+Figure~\ref{fig:consensus-effect} shows the distribution of pairwise similarities between $100$ consensus clustering results for different numbers of clusterings used in the consensus. 
+The plots show that using a higher number of clusterings to form the consensus increases the overall similarity level and reduces the spread between the observed similarities. 
+When choosing $1000$ clusterings to form the consensus (as we do in the main paper), 
+the consensus clusterings we obtain in different runs are almost identical.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{variance_impact_of_consensus_clustering_nmi_us}
+		\subcaption{United States (Normalised Mutual Information)}
+	\end{subfigure}~%
+	\begin{subfigure}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{variance_impact_of_consensus_clustering_nmi_de}
+		\subcaption{Germany (Normalised Mutual Information)}
+	\end{subfigure}
+	\begin{subfigure}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{variance_impact_of_consensus_clustering_rand_us}
+		\subcaption{United States (Adjusted Rand Index)}
+	\end{subfigure}~%
+	\begin{subfigure}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{variance_impact_of_consensus_clustering_rand_de}
+		\subcaption{Germany (Adjusted Rand Index)}
+	\end{subfigure}
+	\caption{Pairwise similarity between $100$ consensus clustering results by number of clusterings used for finding the consensus (box plot interpretation as described in the caption of  Figure~\ref{fig:sensitivity-preferred-clusters}).
+	}
+\label{fig:consensus-effect}
+\end{figure}
+
+Figure~\ref{fig:consensus-within} shows the distribution of pairwise similarities between $100$ pairs of clusterings (i.e., a total of $4950$ similarities) with $100$ as the preferred number of clusters. 
+The NMI values for the United States clusterings mostly range between $0.86$ and $0.94$, while the NMI values for Germany mostly range between $0.84$ and $0.96$.
+The ARI values for the United States clusterings mostly range between $0.55$ and $0.85$ (with the majority lying between $0.65$ and $0.80$), 
+while the ARI values for Germany mostly range between $0.60$ and $0.90$.
+All similarity distributions seem to shift towards the left over time, 
+i.e., clusterings in earlier years tend to be more similar to each other than clusterings in later years. 
+This is likely due to the growth in complexity reported in the main paper.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{variance_infomap_runs_us_nmi}
+		\subcaption{United States (Normalised Mutual Information)}
+	\end{subfigure}~%
+	\begin{subfigure}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{variance_infomap_runs_de_nmi}
+		\subcaption{Germany (Normalised Mutual Information)}
+	\end{subfigure}
+	\begin{subfigure}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{variance_infomap_runs_us_rand}
+		\subcaption{United States (Adjusted Rand Index)}
+	\end{subfigure}~%
+	\begin{subfigure}{0.5\linewidth}
+		\includegraphics[width=\linewidth]{variance_infomap_runs_de_rand}
+		\subcaption{Germany (Adjusted Rand Index)}
+	\end{subfigure}
+	\caption{Pairwise similarity between $100$ clusterings with $100$ as the preferred number of clusters, depicted as kernel-density estimates rather than frequency histograms to reduce visual clutter.}
+	\label{fig:consensus-within}
+\end{figure}
+
+\newpage
+
+\section{Cluster families}\label{sec:labelling}
+
+\subsection{Labelling the twenty largest cluster families}
+
+To arrive at the labels of the $20$ largest cluster families, 
+we leverage our subject matter expertise, 
+inspecting the content of the cluster families based on automatically generated summaries that show what percentage of the cluster is made up by which particular Chapter, Book, or law (measured in tokens). 
+These summaries contain the full paths to each node, including the names of all structural elements in which it is contained in the hierarchy graph. 
+As such, they provide just enough dimensionality reduction for humans to be able to assign the final label with confidence, and they are part of the data provided with the paper. 
+For comparison, we also provide basic TF-IDF (term frequency-inverse document frequency; for more information, see \cite{schutze2008}) statistics for the $20$ largest cluster families as CSV files in the data repository accompanying this paper (with very little preprocessing and without stopwords removed). 
+ 
+Table~\ref{tab:cluster-labeling-alt} contains the Top $10$ nouns according to TF-IDF for the United States cluster families depicted in Figure~6~(a) from the main paper. 
+Table~\ref{tab:cluster-labeling} shows a (reformatted) excerpt from the summary of the largest cluster family in the United States as used in our manual labelling process.
+The full lists of our labels for the $20$ largest clusters are reproduced in Tables~\ref{tab:labels-all-us} and~\ref{tab:labels-all-de}.
+
+\begin{table}[H]
+	\centering\footnotesize
+	\bgroup
+	\def\arraystretch{1.5}
+	\begin{tabular}{r|p{0.115\textwidth}p{0.115\textwidth}p{0.12\textwidth}p{0.115\textwidth}p{0.095\textwidth}p{0.12\textwidth}p{0.095\textwidth}}
+		&\textbf{2015-3}&\textbf{2015-11}&\textbf{2011-3}&\textbf{2010-0}&\textbf{2015-4}&\textbf{2009-8}&\textbf{1995-3}\\\hline
+		1&pesticide&multiemployer&student&depository&cuba&mortgagee&acreage\\
+		2&secretary&year&teachers&thrift&hiv&mortgagor&cotton\\
+		3&state&taxpayer&youth&conservator&states&homeownership&wheat\\
+		4&medicare&plan&secretary&sipc (*)&pakistan&secretary&crop\\
+		5&drug&purposes&school&bank&mtcr (**)&housing&quota\\
+		6&services&amount&state&depositor&afghanistan&mortgages&peanuts\\
+		7&physician&dividend&teacher&banking&nato&mortgage&sugar\\
+		8&pediatric&corporation&childhood&institution&hungary&dwelling&upland\\
+		9&health&income&agency&board&democracy&homebuyers&tobacco\\
+		10&vaccine&distributee&education&corporation&israel&paint&milk\\
+	\end{tabular}
+	\egroup
+	\caption{Top $10$ nouns for the $7$ cluster families depicted in Figure~6~(a) from the main paper, labelled by leading cluster (Year-Cluster Identifier).
+	Nouns referring to structural elements of legal texts (e.g., title, section, subsection, paragraph) are excluded. 
+	(*)~Securities Investor Protection Corporation. (**)~Missile Technology Control Regime.
+	}
+	\label{tab:cluster-labeling-alt}
+\end{table}
+
+\subsection{Inspecting the \emph{miscellaneous} clusters}
+
+Recall that although we use $100$ as the preferred number of clusters, we end up with more than $100$ clusters due to the presence of nodes without any incoming or outgoing references (\emph{singletons}) and our use of consensus clustering. 
+To reduce visual clutter, in Figure~5 from the main paper, we limit the number of clusters drawn per year to $50$, 
+summarising the remaining clusters in one additional miscellaneous cluster. 
+
+In both the United States and Germany, in all years,
+the miscellaneous cluster contains mostly singletons or near-singletons corresponding to small Chapters or laws that are largely self-contained. 
+Its composition remains fairly stable over time (i.e., nodes in the miscellaneous cluster seldom get pulled into a different cluster), 
+and its growth is primarily driven by the addition of new, relatively independent Chapters or laws.
+Since its contents are very diverse, 
+the growth of the miscellaneous cluster could be interpreted as an indicator that our legal corpora grow not only in volume but also in diversity.
+
+To illustrate that the clusters we summarise in the miscellaneous clusters have little impact on our results, 
+Figure~\ref{fig:sankey-500} juxtaposes analogues of Figure~5 from the main paper 
+that summarise only clusters behind the $500$\textsuperscript{th} largest cluster in a miscellaneous cluster with their original counterparts that summarise all clusters behind the $50$\textsuperscript{th} cluster, where clusters are sorted in decreasing order of their size. 
+
+%\newpage
+
+\begin{table}[H]
+	\centering\footnotesize
+	\input{text/labeling-example}
+	\caption{Top $3$ contents of clusters in family $0$ (leading cluster: 2015-3), labelled ``Public Health and Social Welfare'', in four-year intervals from $1994$ to $2018$.
+}
+	\label{tab:cluster-labeling}
+\end{table}
+
+
+
+\begin{table}[H]
+	\centering
+	\input{text/label-table-us}
+	\caption{Labels assigned to the $20$ largest cluster families in the United States, ordered by regression slope (cf. Table~\ref{tab:cluster-family-growth-stats}).
+	}
+	\label{tab:labels-all-us}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\input{text/label-table-de}
+	\caption{Labels assigned to the $20$ largest cluster families in Germany, ordered by regression slope (cf. Table~\ref{tab:cluster-family-growth-stats}).
+	}
+	\label{tab:labels-all-de}
+\end{table}
+
+\newpage
+
+\begin{figure}[H]
+	\vspace*{-16pt}
+	\centering
+	\begin{subfigure}{0.45\linewidth}
+		\includegraphics[width=\linewidth]{sankey_us_0-0_1-0_-1_a-infomap_n100_m1-0_s0_c1000}
+		\subcaption{United States (50 + 1 clusters drawn per year)}
+	\end{subfigure}~%
+	\begin{subfigure}{0.45\linewidth}
+		\includegraphics[width=\linewidth]{sankey_us_0-0_1-0_-1_a-infomap_n100_m1-0_s0_c1000_miscafter500}
+		\subcaption{United States (500 + 1 clusters drawn  per year)}
+	\end{subfigure}
+	
+	\begin{subfigure}{0.45\linewidth}
+		\includegraphics[width=\linewidth]{sankey_de_0-0_1-0_-1_a-infomap_n100_m1-0_s0_c1000}
+		\subcaption{Germany (50 + 1 clusters drawn  per year)}
+	\end{subfigure}~%
+	\begin{subfigure}{0.45\linewidth}
+		\includegraphics[width=\linewidth]{sankey_de_0-0_1-0_-1_a-infomap_n100_m1-0_s0_c1000_miscafter500}
+		\subcaption{Germany (500 + 1 clusters drawn per year)}
+	\end{subfigure}
+	\caption{Federal legislation in the United States and Germany by cluster (1994--2018), depicted as in Figure~5 from the main paper, with different thresholds for summarising small clusters in one miscellaneous cluster.}
+	\label{fig:sankey-500}
+\end{figure}

@@ -1,0 +1,77 @@
+% !TeX spellcheck = en_GB
+% !TeX root = ../main-scirep.tex
+\section{Discussion}
+\label{section:discussion}
+
+This paper investigates the growth of federal legislation in two industrial countries over a period of 25 years. 
+As such, it is limited in \emph{geographic} scope (United States and Germany), 
+\emph{temporal} scope (1994--2018), and \emph{institutional} scope (legislative bodies on the federal level). 
+This makes it hard to assess to which extent the growth we observe is \emph{particular} to our data or rather \emph{universal}. 
+The trend we identify applies to the recent history of federal legislation in at least two countries, the United States and Germany, 
+and our findings in one country provide context for our findings in the other. 
+Thus, we can establish that the growth we find is not a singular phenomenon, but we can only guess how it relates to the trends we might find in the legal document networks of other countries, time frames, or institutions.
+
+The document networks that are most closely related to legislative networks are networks of regulations (produced by executive agencies) and networks of judicial decisions (produced by courts)---%
+and for all of them, growth statistics that are directly comparable to ours are lacking. 
+Some growth statistics are known for patent citation networks \cite{strandburg:2006, strandburg:2009,torrance2017,uspto2020},
+where, e.g., the number of patents granted annually by the United States Patent and Trademark Office has roughly tripled in the 25 years from 1994 to 2018 \cite{uspto2020}. 
+Since the generating processes of patent citation networks are very different from those of legislative networks 
+(patent applicants need to cite prior art in their filings, patent examiners can add further citations, and too much prior art might risk patentability) 
+and the units of analysis are not the same (structural elements in legislative networks vs. individual patents in patent citation networks), 
+however, this result has little bearing on our findings. 
+For similar reasons, comparing our findings with results on non-legal document networks, 
+such as the World Wide Web or scholarly networks, is potentially misleading.
+To put our findings into perspective, 
+extending the scope of our data to other legal document networks is therefore an important direction for future work.
+For example, investigations in the following directions are supported by our legal network data model:
+\begin{enumerate}
+	\item Analysing legislative activity on levels above and below the federal level
+	and comparing the results with our findings will advance the search for invariants that characterize the development of legislative systems. 
+	It can also help us understand the division of labour within the legislative pyramid (e.g., the federal, the state, and the local level).
+	Does state law grow even faster than federal law? 
+	If so, are the growth mechanisms similar or different? 
+	How do the answers to these questions depend on the allocation of legislative competencies?
+	
+	\item Integrating documents from the executive and judicial branches of government with our datasets could help us explore how different parts of the legal system interact. 
+	How does the evolution of a legislative network compare to that of a network of administrative regulations, a network of executive orders, or a network of judicial decisions? 
+	In what areas of law is the development driven by the executive or the judiciary, rather than the legislative?
+	What does this tell us about the distribution of power between the different branches of government?
+	
+	\item Combining our legislative network data 
+	with data collected in other fields of quantitative social science 
+	might improve our understanding of the interaction between legal rules and other rule sets that impact the behaviour of individuals and societies.
+	When, where, and how do legislative changes impact how people behave on the ground? 
+	When, where, and how do changes in how people behave prompt legislative changes? 
+	In other words: What \emph{causal} relationships can we establish between legal change and societal change? 
+	These questions are inherently multidisciplinary, 
+	and to separate causes from confounders, 
+	legal network data would need to be combined with data reflecting public sentiment (e.g., social media data or public news data) and data reflecting individual or collective choices (e.g., 
+	financial network data, company reports, or economic panel data on households, firms, and non-governmental organisations). 
+	Similarly, a multi-pronged strategy could be pursued to investigate the relationships between legal change and \emph{technological} change. 
+	Here, combining legal network data with patent citation network, patent litigation, and R\&D investment data appears to be particularly promising.
+\end{enumerate}
+
+Methodologically, 
+our approach emphasizes the structural features of legislative texts.
+In particular, for the results we report in this work, 
+the content of the legal texts has been only of indirect interest, 
+e.g., as reflected in raw token counts or in reference structures that characterize legal topics.
+As demonstrated in Section~\ref{subsection:reorganisation}, however,
+qualitative analyses of the legal rules contained in our document networks can yield further insights, 
+and this opens opportunities for normative legal research in areas such as comparative law and legal theory \cite{armour2009,spamann2009,cabrelli2015}.
+In these legal disciplines, 
+the United States and Germany are usually classified as following different legal traditions, also referred to as \emph{legal families},
+and the categorization, though commonly accepted, has not been corroborated by empirical studies \cite{zweigertkoetz1998,husa2016,siems2016,glenn2019}.
+
+Last but not least, the findings reported in this paper are based on a set of choices for methods and parameters.
+For example, we examine growth by analysing year-to-year net gain of tokens, 
+as this difference can be determined reliably.
+The amount of legislative activity, however, is likely much higher (e.g., deletions and additions cancel out from the net gain perspective), 
+and developing tools that allow for a fine-grained accounting of legislative changes constitutes an interesting research direction.
+While we explored our model space extensively (as detailed in Section~4 of the~\suppi),
+the parametrisation of the clustering required numerous decisions based on our experience and familiarity with the subject matter.
+Other parametrisations are possible, 
+and they might be needed in other analytical settings.
+In particular, future work could examine selected parts of our data in greater detail, 
+zoom in on a particular legal topic, 
+and therefore choose very different parameters to operate at a higher level of resolution.

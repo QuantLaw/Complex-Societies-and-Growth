@@ -1,0 +1,113 @@
+% !TeX spellcheck = en_GB
+\documentclass[fleqn,12pt]{wlscirep-si}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{enumitem}
+
+\definecolor{tab1}{rgb}{0.12156862745098039, 0.4666666666666667, 0.7058823529411765}
+\definecolor{tab2}{rgb}{0.6823529411764706, 0.7803921568627451, 0.9098039215686274}
+\definecolor{tab3}{rgb}{1.0, 0.4980392156862745, 0.054901960784313725}
+\definecolor{tab4}{rgb}{1.0, 0.7333333333333333, 0.47058823529411764}
+\definecolor{tab5}{rgb}{0.17254901960784313, 0.6274509803921569, 0.17254901960784313}
+\definecolor{tab6}{rgb}{0.596078431372549, 0.8745098039215686, 0.5411764705882353}
+\definecolor{tab7}{rgb}{0.8392156862745098, 0.15294117647058825, 0.1568627450980392}
+\definecolor{tab8}{rgb}{1.0, 0.596078431372549, 0.5882352941176471}
+\definecolor{tab9}{rgb}{0.5803921568627451, 0.403921568627451, 0.7411764705882353}
+\definecolor{tab10}{rgb}{0.7725490196078432, 0.6901960784313725, 0.8352941176470589}
+\definecolor{tab11}{rgb}{0.5490196078431373, 0.33725490196078434, 0.29411764705882354}
+\definecolor{tab12}{rgb}{0.7686274509803922, 0.611764705882353, 0.5803921568627451}
+\definecolor{tab13}{rgb}{0.8901960784313725, 0.4666666666666667, 0.7607843137254902}
+\definecolor{tab14}{rgb}{0.9686274509803922, 0.7137254901960784, 0.8235294117647058}
+\definecolor{tab15}{rgb}{0.4980392156862745, 0.4980392156862745, 0.4980392156862745}
+\definecolor{tab16}{rgb}{0.7803921568627451, 0.7803921568627451, 0.7803921568627451}
+\definecolor{tab17}{rgb}{0.7372549019607844, 0.7411764705882353, 0.13333333333333333}
+\definecolor{tab18}{rgb}{0.8588235294117647, 0.8588235294117647, 0.5529411764705883}
+\definecolor{tab19}{rgb}{0.09019607843137255, 0.7450980392156863, 0.8117647058823529}
+\definecolor{tab20}{rgb}{0.6196078431372549, 0.8549019607843137, 0.8980392156862745}
+
+% CUSTOM SETUP
+\usepackage{float}
+\usepackage[format=hang]{caption}
+\usepackage[format=hang]{subcaption}
+\graphicspath{{../graphics/}}
+\usepackage{url}
+\usepackage{xspace}
+\newcommand{\suppi}{SI\xspace}
+\hyphenation{seq-item seq-items}
+\newtheorem{definition}{Definition}
+\usepackage{array}
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\newcolumntype{C}[1]{>{\PreserveBackslash\centering}p{#1}}
+\newcolumntype{R}[1]{>{\PreserveBackslash\raggedleft}p{#1}}
+\newcolumntype{L}[1]{>{\PreserveBackslash\raggedright}p{#1}}
+\hyphenation{seq-item seq-items}
+\usepackage{listings}
+
+\title{Complex Societies and the Growth of the Law}
+
+
+\author[1,2,5,*]{Daniel Martin Katz}
+\author[3]{Corinna Coupette}
+\author[4]{Janis Beckedorf}
+\author[2,5]{Dirk Hartung}
+\affil[1]{Illinois Tech -- Chicago Kent College of Law}
+\affil[2]{CodeX -- The Stanford Center for Legal Informatics}
+\affil[3]{Max Planck Institute for Informatics}
+\affil[4]{Faculty of Law, Ruprecht-Karls-Universit\"at Heidelberg}
+\affil[5]{Bucerius Law School}
+
+\affil[*]{dkatz3@kentlaw.iit.edu}
+
+%\affil[+]{these authors contributed equally to this work}
+
+\keywords{Legal Complexity, Citation Network, Evolution of Law, Network Science, Social Physics}
+
+\begin{abstract}
+~
+\end{abstract}
+
+\begin{document}
+
+\flushbottom
+\maketitle
+
+\thispagestyle{empty}
+
+\input{text/si}
+
+\bibliography{bibliography}
+
+%Topical subheadings are allowed. Authors must ensure that their Methods section includes adequate experimental and characterization data necessary for others in the field to reproduce their work.
+
+%\noindent LaTeX formats citations and references automatically using the bibliography records in your .bib file, which you can edit via the project menu. Use the cite command for an inline citation, e.g.  \cite{Hao:gidmaps:2014}.
+
+%For data citations of datasets uploaded to e.g. \emph{figshare}, please use the \verb|howpublished| option in the bib entry to specify the platform and the link, as in the \verb|Hao:gidmaps:2014| example in the sample bibliography file.
+
+%The corresponding author is responsible for submitting a \href{http://www.nature.com/srep/policies/index.html#competing}{competing interests statement} on behalf of all authors of the paper. This statement must be included in the submitted article file.
+
+%\begin{figure}[ht]
+%\centering
+%\includegraphics[width=\linewidth]{stream}
+%\caption{Legend (350 words max). Example legend text.}
+%\label{fig:stream}
+%\end{figure}
+
+%\begin{table}[ht]
+%\centering
+%\begin{tabular}{|l|l|l|}
+%\hline
+%Condition & n & p \\
+%\hline
+%A & 5 & 0.1 \\
+%\hline
+%B & 10 & 0.01 \\
+%\hline
+%\end{tabular}
+%\caption{\label{tab:example}Legend (350 words max). Example legend text.}
+%\end{table}
+
+%Figures and tables can be referenced in LaTeX using the ref command, e.g. Figure \ref{fig:stream} and Table \ref{tab:example}.
+
+
+
+\end{document}

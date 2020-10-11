@@ -1,0 +1,267 @@
+% !TeX spellcheck = en_GB
+% !TeX root = ../main-scirep.tex
+\section{Methods}
+\label{section:methods}
+
+\subsection{Modelling legislative document collections}\label{subsection:methods:modelling}
+
+To formalize the intuition that is given in Section~\ref{subsection:model} and illustrated in Figure~\ref{fig:conceptual_sequence_graph}, 
+we use the following definitions.
+Let $D$ be a document understood by the Document Object Model (DOM) standard, 
+with elements $\mathcal{E}_D$ of types $\{$\texttt{document}, \texttt{item}, \texttt{seqitem}, \texttt{subseqitem}, \texttt{text}$\}$ and root $r_D$ of type \texttt{document}.
+We interpret $D$ as a directed rooted tree $T_D$ in the graph theoretical sense,
+where the nodes of $T_D$ are the elements of $D$ that are \emph{not} of type \texttt{text}, 
+and an arc between two nodes indicates that the source contains the target---i.e., $T_D$ contains all structural elements of $D$ with their containment relations.
+With each node in $T_D$, we associate a unique identifier and three attributes: 
+The \emph{type} of a node is its type in $D$, 
+the \emph{level} of a node is its distance $d$ from the root, with $d(r_D,r_D) = 0$, and the \emph{text} of a node is the text of all its children (which can be used to derive additional statistics as necessary). 
+Nodes of type \texttt{seqitem} (short for \emph{sequence item}) typically have \emph{cite~keys}, i.e., sequentially ordered unique identifiers by which they are commonly referenced. 
+All nodes may also have \emph{headings} (representing the headings in the original document), and \texttt{documents} may have abbreviations by which they are commonly referenced.
+The custom XSD expressing this document model can be found in Section~2.4 of the \suppi.
+
+Now let $\mathcal{D}^i_t$ be collection $i$ of documents at time $t$ with their tree representations $\mathcal{T}^i_t$.
+We define the following graphs for $\mathcal{D}^i_t$:
+
+\begin{definition}[Hierarchy Graph $H^i_t$]
+	The \emph{hierarchy graph} of collection $\mathcal{D}^i_t$, denoted $H^i_t$, is a \emph{digraph}
+	\begin{align*}
+	H^i_t = (V^i_{t,H}, E^i_{t,H})~,
+	\end{align*} 
+	where 
+	\begin{align*}
+	V^i_{t,H} = \underset{T\in\mathcal{T}^i_t}{\bigcup} V(T) \cup \{~\bar{r}_i~\}
+	\end{align*}
+	with a structural element $\bar{r}_i$ on level $-1$ representing the identity of the collection, 
+	and
+	\begin{align*}
+	E^i_{t,H} = \underset{T\in\mathcal{T}^i_t}{\bigcup} E(T) \cup \{~(\bar{r}_i,r_D)\mid~D\in\mathcal{D}^i_t~\}~.
+	\end{align*}	
+\end{definition}
+
+That is, the hierarchy graph is the union of all document trees' structural elements equipped with their containment relation, joined by a meta root node identifying the collection.
+
+\begin{definition}[Reference Graph $R^i_t$]
+	The \emph{reference graph} of collection $\mathcal{D}^i_t$, denoted $R^i_t$, 
+	is a \emph{directed multigraph}
+	\begin{align*}
+	R^i_t = (V^i_{t,H}, E^i_{t,R})~,
+	\end{align*} 
+	where 
+	\begin{align*}
+	E^i_{t,R} = E^i_{t,H}\cup C^i_{t}~,
+	\end{align*}	
+	with $C^i_{t}$ a multiset given by
+	\begin{align*}
+	C^i_{t} =\{~(v,w)^m \mid~\text{text of~}v~\text{makes m references}\phantom{~.}\\\text{to}~w~\text{in  }\mathcal{D}^i_t~\wedge~type(v)=type(w)=\texttt{seqitem}~\}~. % and both v and w are of type seqitem
+	\end{align*}
+\end{definition}
+
+That is, the reference graph is the hierarchy graph, 
+augmented by reference relations between its nodes.
+
+\begin{definition}[Sequence Graph $S^i_t(\rho, w, \alpha)$]\label{def:sequencegraph}
+	The \emph{sequence graph} of collection $\mathcal{D}^i_t$ with parameters $\rho$, $w$, and $\alpha$, denoted $S^i_t(\rho, w, \alpha)$, is a \emph{directed multigraph}
+	\begin{align*}
+	S^i_t(\rho, w, \alpha) = (V^i_{t,S}(\rho), E^i_{t,S}(\rho, w, \alpha))~.
+	\end{align*} 
+	Here, $V^i_{t,S}(\rho)$ initially contains all nodes of type \texttt{seqitem}, 
+	and nodes that are neighbours in the sequence are merged if and only if 
+	they meet the \emph{merge condition} $\rho$.
+	$E^i_{t,S}(\rho, w, \alpha)$ contains the arcs of $R^i_t$, projected onto the node set of $S^i_t$, with containment relations now represented as a pair of sequence arcs between nodes with adjacent \emph{cite keys}. 
+	The sequence arcs in $E^i_{t,S}(\rho, w, \alpha)$ are weighted according to a weight function $w$ (specifying the weight decay of sequence arcs as a function of the distance between the source node and the target node in the undirected graph underlying $H^i_t$), 
+	and the reference arcs are weighted according to a weight ratio $\alpha$ (specifying the weight of reference arcs in relation to sequence arcs of maximum weight). 
+\end{definition}
+ 
+As mentioned in Section~\ref{subsection:model},
+the sequence graph representation of a legislative document collection is inspired by how practitioners work with legislative texts.
+Furthermore, the parameters of the sequence graph allow us to incorporate knowledge about legal users into our model 
+(e.g., by weighting reference arcs less heavily than the highest-weight sequence arcs, we can express the intuition that looking up a reference is less likely than simply reading on).
+To compute the node alignments mentioned in Section~\ref{subsection:reorganisation}, 
+we use a more granular variant of the sequence graph:
+
+\begin{definition}[Subsequence Graph $\bar{S}^i_t(\rho, w, \alpha)$]\label{def:subsequencegraph}
+	The \emph{subsequence graph} of collection $\mathcal{D}^i_t$ with parameters $\rho$, $w$, and $\alpha$, denoted $\bar{S}^i_t(\rho, w, \alpha)$, 
+	is defined as the sequence graph $S^i_t(\rho, w, \alpha)$, with \emph{seqitems} being replaced by \emph{subseqitems} (i.e., structural elements one level below the \texttt{seqitem} level) if they exist.
+\end{definition}
+
+Finally, we use a multigraph version of the standard graph theoretical notion of a quotient graph (see also Section~\ref{subsubsection:methods:temporal}):
+
+\begin{definition}[Quotient Graph $Q(G,R)$]
+	Given a graph $G$ and an equivalence relation $R$ on its node set $V$ (i.e., a reflexive, symmetric, and transitive binary relation),
+	a quotient graph is the graph $Q(G,R)$ with
+	\begin{align*}
+	V_{Q(G,R)} = V / R = \{~[u]_R \mid u\in V~\}
+	\end{align*}
+	and 
+	\begin{align*}
+	E_{Q(G,R)} = \{~([u]_R, [v]_R)^m \mid~|\{~(x,y) \in E_G \mid x\in [u]_R \wedge y\in [v]_R~\}| = m > 0~\}~, 
+	\end{align*}
+	where $[u]_R := \{~x\in V\mid (u,x)\in R~\}$ and $[v]_R := \{~y\in V\mid (v,y)\in R~\}$ are equivalence classes of $V$ under $R$.
+\end{definition}
+
+As shown in Section~\ref{subsection:reorganisation} for aggregating legal texts at the Chapter level,
+the equivalence relations of our quotient graphs are generally given by the attributes associated with the structural elements contained in our reference graphs. 
+Another example of quotient graphs, based on the cluster identifiers produced by our graph clustering as node attributes, can be found in Section~3.2 of the~\suppi. 
+
+\subsection{Assessing legislative growth}\label{subsection:methods:growth}
+
+To assess legislative growth in Section~\ref{subsection:growth}, 
+we track three statistics for the United States and Germany from 1994 to 2018: 
+the number of tokens, 
+the number of hierarchical structures, 
+and the number of references contained in the federal statutory legislation of both countries. 
+For the token counts, we concatenate the text of all statutory materials for one country and year, 
+ignoring the extensive appendices to some Titles or laws,
+and split on whitespace characters. 
+The hierarchical structure counts reflect the number of nodes in our hierarchy graphs, 
+and the reference counts reflect the number of edges in our reference graphs.
+Details on our data preprocessing steps can be found in Section~2 of the~\suppi. 
+
+\subsection{Comparing document networks over space and time}
+
+\subsubsection{Clustering document networks}\label{subsubsection:methods:clustering}
+
+To enable our comparative and dynamic analysis in Section~\ref{subsection:reorganisation}, 
+we cluster each annual snapshot of the legislative network separately for both countries. 
+As mentioned in Section~\ref{subsection:reorganisation},
+amongst the plethora of graph clustering methods, 
+we choose the \emph{Infomap} algorithm due to its information-theoretical underpinnings, scalability, and interpretability as a legal (re-)search process. 
+Details on this algorithm can be found in the original papers \cite{rosvall2008,rosvall2009}.
+
+As the input data to \emph{Infomap}, 
+we use the sequence graph representation of an annual snapshot
+with a merge condition $\rho$ that collapses into one node 
+all rules from the same Chapter (or Title, if the Title has no Chapters) in the United States, 
+and all rules from the same Book (or law, if the law has no Books) in Germany. 
+This consolidation step densifies the adjacency matrix of the sequence graph and reduces the noise in our data.
+As almost all remaining nodes lie at distance $2$ from one another in the hierarchy graph, 
+and very few sequence edges would remain,
+we base the clustering solely on references.
+Legislative network analyses using a different $\rho$ would also require the choice of a weight decay function $w$ 
+and a \emph{sequence edge}-to-\emph{reference edge} weight ratio $\alpha$. 
+For \emph{Infomap} itself, 
+we use the default configuration with a preferred cluster number of $100$ as an additional input parameter. 
+As discussed in Section~\ref{subsection:reorganisation},
+this parameter choice reflects the level of analytical resolution we seek to operate at, 
+and it approximates the number of high-level topics legal database providers utilise to organise their content.
+The sensitivity analysis regarding our input parameter can be found in Section~4.1 of the~\suppi. 
+
+As \emph{Infomap} has a stochastic element, 
+we use \emph{consensus clustering} \cite{lancichinetti2012} to increase the robustness of our results as follows: 
+For each snapshot $t$ in each country $i$, 
+we produce $1000$ clusterings with different seeds.
+From the results of these clusterings, we produce a \emph{consensus graph}
+whose nodes are the nodes of the sequence graph, 
+and with an edge connecting two nodes if these nodes are in the same cluster in at least $950 = 95~\%$ of our \emph{Infomap} runs.
+For each year and country, the connected components of the consensus graph then constitute our final clusters, 
+which represent a careful reorganisation of the law enabling comparative and dynamic analysis.
+This leads to more than $100$ final clusters 
+because the initial clusters are typically split into a stable core and several smaller satellites, 
+each of which becomes an additional separate cluster.
+
+\subsubsection{Tracing temporal dynamics}\label{subsubsection:methods:temporal}
+
+To trace legislative change over time, we need to align the textual contents of our yearly snapshots within each jurisdiction. 
+Computing the optimal node alignment between two graphs is generally a hard problem, 
+and methods based on tree edit distance do not scale to legislative trees. 
+However, we can use sequence graphs with the highest possible granularity 
+(using a merge condition $\rho$ that condenses nothing)
+along with the text associated with individual nodes, 
+and exploit the fact that most rules do not change most of the time 
+to construct a practical heuristic that greedily computes a partial node alignment $\phi^i_t$ across two snapshots $S^i_t$ and $S^i_{t+1}$ from corpus $i$. 
+Our heuristic operates in at most four sequential passes through these snapshots:
+
+\begin{enumerate}
+	\item First pass: 
+	If $v$ is a node in $S^i_t$ and we find exactly one node $w$ in $S^i_{t+1}$ with identical text \emph{and} the text is at least 50 characters long, set $\phi^i_t(v) = w$.
+	\item Second pass: 
+	If $v$ is an unmatched node in $S^i_t$ and we find an unmatched node $w$ in $S^i_{t+1}$ with identical key \emph{and} identical text, 
+	set $\phi^i_t(v) = w$.
+	\item Third pass: 
+	If $v$ is an unmatched node in $S^i_t$ and we find exactly one unmatched node $w$ in $S^i_{t+1}$ such that (i) the text of $v$ contains the text of $w$ (or the text of $w$ contains the text of $v$) and (ii) the text remaining unmatched in $v$ ($w$) is shorter than the matched part, set $\phi^i_t(v) = w$.
+	\item Fourth pass: 
+	If $v$ is an unmatched node in $S^i_t$ and we find a matched node $v'$ in $S^i_t$ in the five-hop neighbourhood of $v$, 
+	search the five-hop neighbourhood of $\phi^i_t(v')$ for the unmatched node $w$ (if any) with the largest Jaro-Winkler string similarity\cite{winkler1990} to $v$; 
+	if that similarity is above $0.9$, set $\phi^i_t(v) = w$.
+	Repeat recursively with all newly matched nodes until no further matches are found.
+\end{enumerate}
+
+With this procedure, we manage to map between $94~\%$ and $100~\%$ of the \emph{subseqitems} between adjacent snapshots in both the United States and Germany, i.e., our partial node alignments are almost complete, 
+and the unmatched subseqitems are indicators of larger changes in the code (rather than errors). 
+Based on partial \emph{node} alignments $\phi^i_t$ for all relevant $t$, we compute a partial \emph{cluster} alignment across snapshots, 
+which we call the \emph{cluster graph} $C^i$:
+
+\begin{definition}[Cluster Graph $C^i$]\label{def:clustergraph}
+	Let $C^i_t$ be the consensus clustering obtained for collection $i$ at time $t$. 
+	The \emph{cluster graph} of collection $i$ across times $T$, denoted $C^i$, is a weighted digraph 
+	\begin{align*}
+	C^i = (V^i_C,E^i_C)~,
+	\end{align*}
+	where
+	\begin{align*}
+	V^i_C = \underset{t \in T}{\bigcup} \{~c \in C^i_t~\}
+	\end{align*}
+	and
+	\begin{align*}
+	E^i_C = \{~(c,c',w) \mid c\in C^i_t~\wedge~c'\in C^i_{t+1}~\wedge~ \Delta(c,c') = w~\}
+	\end{align*}
+	with
+	\begin{align*}
+	\Delta(c,c') = \sum_{v~\in~c~\setminus~\{~v~\mid~\phi^i_t(v)~\notin~c'~\}}|\phi^i_t(v)|~,
+	\end{align*}
+	where $|v|$ denotes the number of tokens in a node $v$ of the sequence graph $S^i_t$ used as input to the clustering at time~$t$.
+\end{definition}
+
+That is, the cluster graph $C^i$ contains the clusters resulting from the clusterings of all snapshots as nodes, 
+and its weighted edges $(c,c',w)$ indicate how many tokens from a cluster $c'\in C^i_{t+1}$ stem from cluster $c\in C^i_t$.
+
+The cluster graph allows us to identify substantial additions, deletions, and movements of tokens in the United States and Germany over our entire period of study, revealing dynamics at the level of \emph{individual clusters}.
+To trace dynamics at the level of \emph{legal topics}, 
+we define \emph{cluster families} based on the \emph{family graphs} of our collections:
+
+\begin{definition}[Family Graph $F^i(\gamma)$]\label{def:familygraph}
+	Let $C^i$ be the cluster graph of collection $i$ across times $T$.
+	The \emph{family graph} of collection $i$ across times $T$, denoted $F^i$, 
+	is a weighted digraph 
+	\begin{align*}
+	F^i(\gamma) = (V^i_C,E^i_F(\gamma))~,
+	\end{align*}
+	where
+	\begin{align*}
+	E^i_F(\gamma) = \{~(c,c',w)~\mid~(c,c',w) \in E^i_C~\wedge~\chi(c,c',w) \geq \gamma~\}
+	\end{align*}
+	with
+	\begin{align*}
+	\chi(c,c',w)=\min~\Big\{~\frac{w}{|c|}, \frac{w}{|c'|}~\Big\}~,
+	\end{align*}
+	where $|c|$ denotes the number of tokens in cluster $c$.
+\end{definition}
+
+In words, the family graph $F^i(\gamma)$ contains the same nodes as the cluster graph $C^i$ 
+but only those edges from $(c,c',w)~\in~E^i_C$ that account for at least a $\gamma$ fraction of the tokens in both $c$ and $c'$. 
+We set $\gamma = 0.15$ to filter out noise and isolate parts of the cluster graph that are largely self-contained,
+but this threshold can be replaced by any other number between $0$ and $1$ depending for other analyses.
+
+To trace the evolution of legal topics over time, based on the family graph, we define:
+
+\begin{definition}[Cluster Family $V^i_{F,j}$]\label{def:cluster-family}
+	Let $F^i(\gamma)$ be the family graph for collection $i$ across times $T$ consisting of cluster families as connected components.
+	A \emph{cluster family} $V^i_{F,j}$ is the node set of $F^i(\gamma)$'s $j$\textsuperscript{th} largest connected component (measured in tokens).
+\end{definition} 
+
+In addition to the overall size of a cluster family (given by the size of its leading cluster), 
+our analysis also uses a temporal notion of cluster family size:
+
+\begin{definition}[Cluster Family Size at Time $t$ $|V^i_{F,j,t}|$]\label{def:cluster-family-size}
+	Let $V^i_{F,j}$ be a cluster family $j$ in collection $i$, 
+	and let $C^i_t$ be the consensus clustering obtained for time $t$.
+	The size of cluster family $j$ at time $t$ is defined as
+	\begin{align*}
+	|V^i_{F,j,t}| = \sum_{c~\in~(V^i_{F,j}~\cap~C^i_t)}|c|~,
+	\end{align*}
+	where $|c|$ denotes the number of tokens in a node $c$. 
+\end{definition}
+
+With our parametrisation, cluster families are sets of Chapters, Books, or laws that are closely related by cross-references or (almost) textual identity over time.
+As such, they approximately correspond to \emph{legal topics}.
+Further information on how we label these topics can be found in Section~5.1 of the~\suppi. 

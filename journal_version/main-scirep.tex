@@ -1,0 +1,127 @@
+% !TeX spellcheck = en_GB
+\documentclass[fleqn,12pt]{wlscirep}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{enumitem}
+
+% UNCOMMENT FOR HANDIN (AUTOMATICALLY COMPILES NUMBERED PDF FILES FROM GRAPHICS FOLDER)
+\write18{cd figures && latexmk -pdf}
+
+% CUSTOM SETUP
+\usepackage{float}
+\usepackage[format=hang]{caption}
+\usepackage[format=hang]{subcaption}
+\graphicspath{{../graphics/}}
+\usepackage{url}
+\usepackage{xspace}
+\newcommand{\suppi}{SI\xspace}
+\hyphenation{seq-item seq-items}
+\newtheorem{definition}{Definition}
+\usepackage{array}
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\newcolumntype{C}[1]{>{\PreserveBackslash\centering}p{#1}}
+\newcolumntype{R}[1]{>{\PreserveBackslash\raggedleft}p{#1}}
+\newcolumntype{L}[1]{>{\PreserveBackslash\raggedright}p{#1}}
+\hyphenation{seq-item seq-items}
+
+\title{Complex Societies and the Growth of the Law}
+
+
+\author[1,2,5,*]{Daniel Martin Katz}
+\author[3]{Corinna Coupette}
+\author[4]{Janis Beckedorf}
+\author[2,5]{Dirk Hartung}
+\affil[1]{Illinois Tech -- Chicago Kent College of Law}
+\affil[2]{CodeX -- The Stanford Center for Legal Informatics}
+\affil[3]{Max Planck Institute for Informatics}
+\affil[4]{Faculty of Law, Ruprecht-Karls-Universit\"at Heidelberg}
+\affil[5]{Bucerius Law School}
+
+\affil[*]{dkatz3@kentlaw.iit.edu}
+
+%\affil[+]{these authors contributed equally to this work}
+
+\keywords{Legal Complexity, Citation Network, Evolution of Law, Network Science, Social Physics}
+
+\begin{abstract}
+While many informal factors influence how people interact, modern societies rely upon law as a primary mechanism to formally control human behaviour. 
+How legal rules impact societal development depends on the interplay between two types of actors: 
+the people who create the rules and the people to which the rules potentially apply.
+We hypothesise that an increasingly diverse and interconnected society might create increasingly diverse and interconnected rules,
+and assert that legal networks provide a useful lens through which to observe the interaction between law and society.  
+To evaluate these propositions, we present a novel and generalizable model of statutory materials as multidimensional, time-evolving document networks. 
+Applying this model to the federal legislation of the United States and Germany, we find impressive expansion in the size and complexity of laws over the past two and a half decades. 
+We investigate the sources of this development using methods from network science and natural language processing. 
+To allow for cross-country comparisons over time, 
+based on the explicit cross-references between legal rules,
+we algorithmically reorganise the legislative materials of the United States and Germany into cluster families that reflect legal topics. 
+This reorganisation reveals that the main driver behind the growth of the law in both jurisdictions is the expansion of the welfare state, backed by an expansion of the tax state. 
+Hence, our findings highlight the power of document network analysis for understanding the evolution of law and its relationship with society.
+\end{abstract}
+\begin{document}
+
+\flushbottom
+\maketitle
+
+\thispagestyle{empty}
+
+\input{text/introduction}
+
+\input{text/results}
+
+\input{text/discussion}
+
+\input{text/methods}
+
+\subsection*{Code availability}
+
+The code used in this study is available on GitHub in the following repositories: 
+\begin{itemize}[label=--]
+	\item Paper: \url{https://github.com/QuantLaw/Complex-Societies-and-Growth}\\
+	DOI of publication release: \textcolor{red}{TBD}
+	\item Data preprocessing: \url{https://github.com/QuantLaw/legal-data-preprocessing}\\
+	DOI of publication release: \textcolor{red}{TBD}
+	\item Clustering: \url{https://github.com/QuantLaw/legal-data-clustering}\\
+	DOI of publication release: \textcolor{red}{TBD}
+\end{itemize}
+
+\subsection*{Data availability}
+
+For the United States, the raw input data used in this study is publicly available from the Annual Historical Archives published by the Office of the Law Revision Counsel of the U.S. House of Representatives,
+and is also available from the authors upon reasonable request.
+
+For Germany, the raw input data used in this study was obtained from \emph{juris GmbH} but restrictions apply to the availability of this data, 
+which was used under license for the current study, 
+and so is not publicly available. 
+For details, see Section~1.2 of the SI.
+
+The preprocessed data used in this study (for both the United States and Germany) is archived under the following DOI:
+\textcolor{red}{TBD}
+
+\bibliography{bibliography}
+
+\section*{Acknowledgements}
+
+The research was supported by a grant from the Interdisciplinary Legal Research Program (ILRP) at Bucerius Law School and benefited from discussions with its director Hans-Bernd Schäfer. 
+
+\section*{Author contributions statement}
+
+All authors conceived of the research project.  
+C.C. and J.B. performed the computational analysis in consultation with D.M.K. and D.H.  
+All authors drafted the manuscript and it was revised and reviewed by all authors. 
+All authors gave final approval for publication and agree to be held accountable for the work performed therein.
+
+\section*{Additional information}
+
+\subsection*{Competing Interests}
+
+D.M.K. is affiliated with the start-up LexPredict which is now part of Elevate Services.
+The other authors declare no competing interests.
+
+\clearpage
+
+\section*{Tables and figures}
+
+\input{text/figures.tex}
+
+\end{document}

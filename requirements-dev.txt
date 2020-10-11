@@ -1,0 +1,13 @@
+jupyterlab
+nb-clean
+nbconvert
+matplotlib
+seaborn
+networkx
+cdlib
+beautifulsoup4
+regex
+infomap
+gensim
+quantlaw
+git+git://github.com/quantlaw/legal-data-clustering.git
